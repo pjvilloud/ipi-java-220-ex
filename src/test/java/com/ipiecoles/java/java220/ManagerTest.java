@@ -125,7 +125,7 @@ public class ManagerTest {
 
         Manager d = Manager.class.getConstructor().newInstance();
         TestUtils.invokeSetter(d, "equipe", Stream.of(new Technicien(), new Technicien()).collect(Collectors.toSet()));
-        TestUtils.callMethodPrimitiveParameters(d, "augmenterSalaireEquipe", 0.05d);
+        TestUtils.callDeclaredMethodPrimitiveParameters(d, "augmenterSalaireEquipe", 0.05d);
         Assertions.assertThat((HashSet)TestUtils.invokeGetter(d, "equipe")).isNotNull();
         Assertions.assertThat((HashSet)TestUtils.invokeGetter(d, "equipe")).hasSize(2);
         Iterator iterator = ((HashSet) TestUtils.invokeGetter(d, "equipe")).iterator();
@@ -133,8 +133,8 @@ public class ManagerTest {
         Assertions.assertThat(TestUtils.invokeGetter(iterator.next(), "salaire")).isEqualTo(0.0);
 
         d = Manager.class.getConstructor().newInstance();
-        TestUtils.invokeSetter(d, "equipe", Stream.of(Technicien.class.getConstructor().newInstance(null, null, null, null, 1000.0, 1), Technicien.class.getConstructor().newInstance(null, null, null, null, 1000.0, 1)).collect(Collectors.toSet()));
-        TestUtils.callMethodPrimitiveParameters(d, "augmenterSalaireEquipe", 0.50d);
+        TestUtils.invokeSetter(d, "equipe", Stream.of(Technicien.class.getConstructor(String.class, String.class, String.class, DateTime.class, double.class, int.class).newInstance(null, null, null, null, 1000.0, 1), Technicien.class.getConstructor(String.class, String.class, String.class, DateTime.class, double.class, int.class).newInstance(null, null, null, null, 1000.0, 1)).collect(Collectors.toSet()));
+        TestUtils.callDeclaredMethodPrimitiveParameters(d, "augmenterSalaireEquipe", 0.50d);
         Assertions.assertThat((HashSet)TestUtils.invokeGetter(d, "equipe")).isNotNull();
         Assertions.assertThat((HashSet)TestUtils.invokeGetter(d, "equipe")).hasSize(2);
         iterator = ((HashSet) TestUtils.invokeGetter(d, "equipe")).iterator();
@@ -164,7 +164,7 @@ public class ManagerTest {
 
         d = Manager.class.getConstructor().newInstance();
         TestUtils.invokeSetter(d, "salaire", 1000.0);
-        TestUtils.invokeSetter(d, "equipe", Stream.of(Technicien.class.getConstructor().newInstance(null, null, null, null, 1000.0, 1), Technicien.class.getConstructor().newInstance(null, null, null, null, 1000.0, 1)).collect(Collectors.toSet()));
+        TestUtils.invokeSetter(d, "equipe", Stream.of(Technicien.class.getConstructor(String.class, String.class, String.class, DateTime.class, double.class, int.class).newInstance(null, null, null, null, 1000.0, 1), Technicien.class.getConstructor(String.class, String.class, String.class, DateTime.class, double.class, int.class).newInstance(null, null, null, null, 1000.0, 1)).collect(Collectors.toSet()));
         TestUtils.callMethodPrimitiveParameters(d, "augmenterSalaire", 0.50d);
         Assertions.assertThat((HashSet)TestUtils.invokeGetter(d, "equipe")).isNotNull();
         Assertions.assertThat((HashSet)TestUtils.invokeGetter(d, "equipe")).hasSize(2);
