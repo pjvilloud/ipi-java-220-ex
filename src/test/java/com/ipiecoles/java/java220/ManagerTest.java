@@ -129,17 +129,17 @@ public class ManagerTest {
         Assertions.assertThat((HashSet)TestUtils.invokeGetter(d, "equipe")).isNotNull();
         Assertions.assertThat((HashSet)TestUtils.invokeGetter(d, "equipe")).hasSize(2);
         Iterator iterator = ((HashSet) TestUtils.invokeGetter(d, "equipe")).iterator();
-        Assertions.assertThat(((Technicien)iterator.next()).getSalaire()).isEqualTo(0.0);
-        Assertions.assertThat(((Technicien)iterator.next()).getSalaire()).isEqualTo(0.0);
+        Assertions.assertThat(TestUtils.invokeGetter(iterator.next(), "salaire")).isEqualTo(0.0);
+        Assertions.assertThat(TestUtils.invokeGetter(iterator.next(), "salaire")).isEqualTo(0.0);
 
         d = Manager.class.getConstructor().newInstance();
-        TestUtils.invokeSetter(d, "equipe", Stream.of(new Technicien(null, null, null, null, 1000.0, 1), new Technicien(null, null, null, null, 1000.0, 1)).collect(Collectors.toSet()));
+        TestUtils.invokeSetter(d, "equipe", Stream.of(Technicien.class.getConstructor().newInstance(null, null, null, null, 1000.0, 1), Technicien.class.getConstructor().newInstance(null, null, null, null, 1000.0, 1)).collect(Collectors.toSet()));
         TestUtils.callMethodPrimitiveParameters(d, "augmenterSalaireEquipe", 0.50d);
         Assertions.assertThat((HashSet)TestUtils.invokeGetter(d, "equipe")).isNotNull();
         Assertions.assertThat((HashSet)TestUtils.invokeGetter(d, "equipe")).hasSize(2);
         iterator = ((HashSet) TestUtils.invokeGetter(d, "equipe")).iterator();
-        Assertions.assertThat(((Technicien)iterator.next()).getSalaire()).isEqualTo(1500.0);
-        Assertions.assertThat(((Technicien)iterator.next()).getSalaire()).isEqualTo(1500.0);
+        Assertions.assertThat(TestUtils.invokeGetter(iterator.next(), "salaire")).isEqualTo(1500.0);
+        Assertions.assertThat(TestUtils.invokeGetter(iterator.next(), "salaire")).isEqualTo(1500.0);
     }
 
     @Test
@@ -157,20 +157,20 @@ public class ManagerTest {
         Assertions.assertThat((HashSet)TestUtils.invokeGetter(d, "equipe")).isNotNull();
         Assertions.assertThat((HashSet)TestUtils.invokeGetter(d, "equipe")).hasSize(2);
         Iterator iterator = ((HashSet) TestUtils.invokeGetter(d, "equipe")).iterator();
-        Assertions.assertThat(((Technicien)iterator.next()).getSalaire()).isEqualTo(0.0);
-        Assertions.assertThat(((Technicien)iterator.next()).getSalaire()).isEqualTo(0.0);
+        Assertions.assertThat(TestUtils.invokeGetter(iterator.next(), "salaire")).isEqualTo(0.0);
+        Assertions.assertThat(TestUtils.invokeGetter(iterator.next(), "salaire")).isEqualTo(0.0);
         Assertions.assertThat(TestUtils.invokeGetter(d, "salaire")).isEqualTo(1365.0);
 
 
         d = Manager.class.getConstructor().newInstance();
         TestUtils.invokeSetter(d, "salaire", 1000.0);
-        TestUtils.invokeSetter(d, "equipe", Stream.of(new Technicien(null, null, null, null, 1000.0, 1), new Technicien(null, null, null, null, 1000.0, 1)).collect(Collectors.toSet()));
+        TestUtils.invokeSetter(d, "equipe", Stream.of(Technicien.class.getConstructor().newInstance(null, null, null, null, 1000.0, 1), Technicien.class.getConstructor().newInstance(null, null, null, null, 1000.0, 1)).collect(Collectors.toSet()));
         TestUtils.callMethodPrimitiveParameters(d, "augmenterSalaire", 0.50d);
         Assertions.assertThat((HashSet)TestUtils.invokeGetter(d, "equipe")).isNotNull();
         Assertions.assertThat((HashSet)TestUtils.invokeGetter(d, "equipe")).hasSize(2);
         iterator = ((HashSet) TestUtils.invokeGetter(d, "equipe")).iterator();
-        Assertions.assertThat(((Technicien)iterator.next()).getSalaire()).isEqualTo(1500.0);
-        Assertions.assertThat(((Technicien)iterator.next()).getSalaire()).isEqualTo(1500.0);
+        Assertions.assertThat(TestUtils.invokeGetter(iterator.next(), "salaire")).isEqualTo(1500.0);
+        Assertions.assertThat(TestUtils.invokeGetter(iterator.next(), "salaire")).isEqualTo(1500.0);
         Assertions.assertThat(TestUtils.invokeGetter(d, "salaire")).isEqualTo(1950.0);
     }
 }

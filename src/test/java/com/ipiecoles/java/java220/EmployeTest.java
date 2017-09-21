@@ -16,15 +16,14 @@ public class EmployeTest {
 	
 	class Derived extends Employe {
 		//A decommenter quand le constructeur avec les 5 arguments est codé
-		public Derived(String nom, String prenom, String matricule, DateTime dateEmbauche, double salaire) {
-			super(nom, prenom, matricule, dateEmbauche, salaire);
+		public Derived(String nom, String prenom, String matricule, DateTime dateEmbauche, double salaire) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+			super.getClass().getConstructor().newInstance(nom, prenom, matricule, dateEmbauche, salaire);
 		}
 
 		public Derived() {
 		}
 
 		//A decommenter quand la méthode getPrimeAnnuelle est déclarée
-		@Override
 		public double getPrimeAnnuelle() {
 			return 0;
 		}
@@ -152,14 +151,14 @@ public class EmployeTest {
 	}
 
 	@Test
-	public void exo108TestToString() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+	public void exo108TestToString() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
 		DateTime dateTime = new DateTime(0L);
 		Derived d = new Derived("nom", "prenom", null, dateTime, 500.0);
 		Assertions.assertThat(TestUtils.callMethod(d, "toString")).isEqualTo("Employe{nom='nom', prenom='prenom', matricule='null', dateEmbauche=1970-01-01T01:00:00.000+01:00, salaire=500.0}");
 	}
 
 	@Test
-	public void exo109TestEquals() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+	public void exo109TestEquals() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
 		DateTime dateTime = new DateTime(0L);
 		Derived d = new Derived("nom", "prenom", "matricule", dateTime, 500.0);
 		Derived d2 = new Derived("nom", "prenom", "matricule", dateTime, 500.0);
@@ -171,10 +170,10 @@ public class EmployeTest {
 	}
 
 	@Test
-	public void exo110TestAugmenterSalaire() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+	public void exo110TestAugmenterSalaire() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
 		DateTime dateTime = new DateTime(0L);
 		Derived d = new Derived("nom", "prenom", "matricule", dateTime, 500.0);
-		d.augmenterSalaire(0.50);
-		Assertions.assertThat(d.getSalaire()).isEqualTo(750.0);
+		TestUtils.callMethodPrimitiveParameters(d, "augmenterSalaire", 0.50);
+		Assertions.assertThat(TestUtils.invokeGetter(d, "salaire")).isEqualTo(750.0);
 	}
 }

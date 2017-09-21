@@ -1,6 +1,6 @@
 package com.ipiecoles.java.java220;
 
-import exceptions.TechnicienException;
+import com.ipiecoles.java.java220.exceptions.TechnicienException;
 import org.assertj.core.api.Assertions;
 import org.joda.time.DateTime;
 import org.junit.FixMethodOrder;
@@ -118,7 +118,7 @@ public class TechnicienTest {
 		Technicien d = Technicien.class.getConstructor().newInstance();
 		try {
 			TestUtils.invokeSetter(d, "dateEmbauche", DateTime.now());
-			Assertions.assertThat(TestUtils.callMethod(d, "getNbConges")).isEqualTo(Entreprise.NB_CONGES_BASE);
+			Assertions.assertThat(TestUtils.callMethod(d, "getNbConges")).isEqualTo(TestUtils.getStaticFinalField(Entreprise.class, "NB_CONGES_BASE"));
 		}
 		catch(Exception technicienException){
 			Assertions.fail("L'affectation n'aurait pas du lancer une exception");
@@ -126,7 +126,7 @@ public class TechnicienTest {
 
 		try {
 			TestUtils.invokeSetter(d, "dateEmbauche", DateTime.now().minusYears(4));
-			Assertions.assertThat(TestUtils.callMethod(d, "getNbConges")).isEqualTo(Entreprise.NB_CONGES_BASE + 4);
+			Assertions.assertThat(TestUtils.callMethod(d, "getNbConges")).isEqualTo((Integer)TestUtils.getStaticFinalField(Entreprise.class, "NB_CONGES_BASE") + 4);
 		}
 		catch(Exception technicienException){
 			Assertions.fail("L'affectation n'aurait pas du lancer une exception");
