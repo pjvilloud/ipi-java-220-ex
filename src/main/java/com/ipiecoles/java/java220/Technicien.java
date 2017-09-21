@@ -1,8 +1,8 @@
 package com.ipiecoles.java.java220;
 
+import com.ipiecoles.java.java220.exceptions.TechnicienException;
 import org.joda.time.DateTime;
 
-import exceptions.TechnicienException;
 
 public class Technicien extends Employe {
 	
