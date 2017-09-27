@@ -189,10 +189,6 @@ public class TechnicienTest {
 
 	//Méthode protected avc exemple autre package
 
-	//Polymorphisme
-
-	//Programmation générique
-
 	//Interface avec code
 
 	//Classe interne

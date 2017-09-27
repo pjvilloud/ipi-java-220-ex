@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.assertj.core.api.Assertions;
 import org.joda.time.DateTimeUtils;
+import org.joda.time.LocalDate;
 import org.junit.AfterClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -42,6 +43,51 @@ public class EntrepriseTest {
 		
 		resultat = TestUtils.callMethod(Entreprise.class, "primeAnnuelleBase");
 		Assertions.assertThat(resultat).isEqualTo(985.0);
+	}
+
+	@Test
+	public void exo003() throws Exception {
+		//Créer la classe générique Unite ayant deux attributs responsable de type générique et membres, qui est un
+		//hashset de type générique. Générer les getters/setters
+		//Créer un constructeur par défaut, un constructeur avec un membre qui affecte ce membre en tant que responsable et l'ajoute aux membres
+		//Ajouter une méthode ajouterMembre qui peut prendre autant de type générique que l'on veut
+		//Générer une méthode toString
+
+		//Décommenter tout le code ci-dessous une fois les développements effectués et analyser les 4 dernières lignes
+		Technicien t1 = new Technicien("Roussel", "Clémence", "000T01", new LocalDate(), Entreprise.SALAIRE_BASE, 1);
+		Technicien t2 = new Technicien("Chevalier", "Lucie", "000T02", new LocalDate(), Entreprise.SALAIRE_BASE, 2);
+		Technicien t3 = new Technicien("Brunet", "Tom", "000T03", new LocalDate(), Entreprise.SALAIRE_BASE, 3);
+		Technicien t4 = new Technicien("Leroux", "Louise", "000T04", new LocalDate(), Entreprise.SALAIRE_BASE, 4);
+		Technicien t5 = new Technicien("Noa", "Philippe", "000T05", new LocalDate(), Entreprise.SALAIRE_BASE, 5);
+
+		Unite<Technicien> employeEquipeT1 = new Unite<>(t1);
+		employeEquipeT1.ajouterMembre(t2);
+
+		Unite<Technicien> employeEquipeT2 = new Unite<>(t3);
+		employeEquipeT1.ajouterMembre(t4, t5);
+
+		Manager m1 = new Manager("Gaillard", "Victor", "000M01", new LocalDate(), Entreprise.SALAIRE_BASE, employeEquipeT1.getMembres());
+		Manager m2 = new Manager("Lambert", "Arthur", "000M02", new LocalDate(), Entreprise.SALAIRE_BASE, employeEquipeT2.getMembres());
+
+		Unite<Manager> employeEquipeM1 = new Unite<>(m1);
+		employeEquipeM1.ajouterMembre(m2);
+
+		Commercial c1 = new Commercial("Schneider", "Ines", "000C01", new LocalDate(), Entreprise.SALAIRE_BASE, 10000.0);
+		Commercial c2 = new Commercial("Bourgeois", "Lisa", "000C02", new LocalDate(), Entreprise.SALAIRE_BASE, 20000.0);
+		Commercial c3 = new Commercial("Renard", "Noah", "000C03", new LocalDate(), Entreprise.SALAIRE_BASE, 30000.0);
+
+		Unite<Commercial> employeEquipeC1 = new Unite<>(c1);
+		employeEquipeC1.ajouterMembre(c2, c3);
+
+		Unite<Unite> entreprise = new Unite<>(employeEquipeM1);
+		entreprise.ajouterMembre(employeEquipeT1, employeEquipeC1);
+
+		System.out.println(entreprise);
+
+		Unite<Employe> ensembleEmployes = new Unite<>(t1);
+		ensembleEmployes.ajouterMembre(t2, t3, t4, t5, m1, m2, c1, c2, c3);
+
+		System.out.println(ensembleEmployes);
 	}
 
 	@AfterClass

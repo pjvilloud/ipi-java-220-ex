@@ -10,7 +10,16 @@ import java.util.stream.Collectors;
 public class Manager extends Employe {
 	
 	private HashSet<Technicien> equipe = new HashSet();
-	
+
+	public Manager(){
+
+	}
+
+	public Manager(String nom, String prenom, String matricule, LocalDate dateEmbauche, Double salaire, HashSet<Technicien> equipe) {
+		super(nom, prenom, matricule, dateEmbauche, salaire);
+		this.equipe = equipe;
+	}
+
 	public void ajoutTechnicienEquipe(Technicien technicien) {
 		equipe.add(technicien);
 	}
@@ -60,4 +69,8 @@ public class Manager extends Employe {
 		this.equipe = equipe;
 	}
 
+	@Override
+	public String toString() {
+		return "Manager{} " + super.toString();
+	}
 }

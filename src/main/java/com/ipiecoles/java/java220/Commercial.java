@@ -74,4 +74,12 @@ public class Commercial extends Employe {
 		return Double.compare(that.caAnnuel, caAnnuel) == 0;
 
 	}
+
+	@Override
+	public String toString() {
+		return "Commercial{" +
+				"caAnnuel=" + caAnnuel +
+				", performance=" + performance +
+				"} " + super.toString();
+	}
 }
