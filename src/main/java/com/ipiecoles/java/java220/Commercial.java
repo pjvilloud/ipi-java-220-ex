@@ -1,6 +1,6 @@
 package com.ipiecoles.java.java220;
 
-import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 
 public class Commercial extends Employe {
 
@@ -12,13 +12,13 @@ public class Commercial extends Employe {
 		
 	}
 	
-	public Commercial(String nom, String prenom, String matricule, DateTime dateEmbauche, Double salaire,
+	public Commercial(String nom, String prenom, String matricule, LocalDateTime dateEmbauche, Double salaire,
 			Double caAnnuel) {
 		super(nom, prenom, matricule, dateEmbauche, salaire);
 		this.caAnnuel = caAnnuel;
 	}
 
-	public Commercial(String nom, String prenom, String matricule, DateTime dateEmbauche, Double salaire,
+	public Commercial(String nom, String prenom, String matricule, LocalDateTime dateEmbauche, Double salaire,
 					  Double caAnnuel, Integer performance) {
 		this(nom, prenom, matricule, dateEmbauche, salaire, caAnnuel);
 		this.performance = performance;

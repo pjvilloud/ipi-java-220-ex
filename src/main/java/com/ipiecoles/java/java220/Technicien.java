@@ -1,7 +1,7 @@
 package com.ipiecoles.java.java220;
 
 import com.ipiecoles.java.java220.exceptions.TechnicienException;
-import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 
 import java.util.Objects;
 
@@ -11,10 +11,10 @@ public class Technicien extends Employe implements Comparable<Technicien> {
 	private Integer grade;
 	
 	public Technicien() {
-		
+
 	}
 		
-	public Technicien(String nom, String prenom, String matricule, DateTime dateEmbauche, Double salaire, Integer grade) throws TechnicienException {
+	public Technicien(String nom, String prenom, String matricule, LocalDateTime dateEmbauche, Double salaire, Integer grade) throws TechnicienException {
 		super(nom, prenom, matricule, dateEmbauche, salaire);
 		this.setGrade(grade);
 	}

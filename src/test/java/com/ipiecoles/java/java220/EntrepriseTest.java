@@ -29,7 +29,7 @@ public class EntrepriseTest {
 	public void exo002PrimeAnnuelleBase() throws IllegalAccessException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException {
 		//Déclarer au niveau de la classe Entreprise, une méthode primeAnnuelleBase, publique et statique 
 		//calculant la prime de base pour tous les employés de l'entreprise de la manière suivante :
-		//Utiliser la classe DateTime pour obtenir l'année courante.
+		//Utiliser la classe LocalDateTime pour obtenir l'année courante.
 		//
 		//Prime = 50% de l'année en cours. Ex : 2017 : 2017 / 2 = 1008.5
 		
