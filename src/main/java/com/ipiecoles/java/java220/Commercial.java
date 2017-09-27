@@ -4,28 +4,64 @@ import org.joda.time.DateTime;
 
 public class Commercial extends Employe {
 
-	private double caAnnuel;
-	
+	private Double caAnnuel = 0d;
+
+	private Integer performance;
+
 	public Commercial() {
 		
-	};
+	}
 	
-	public Commercial(String nom, String prenom, String matricule, DateTime dateEmbauche, double salaire,
-			double caAnnuel) {
+	public Commercial(String nom, String prenom, String matricule, DateTime dateEmbauche, Double salaire,
+			Double caAnnuel) {
 		super(nom, prenom, matricule, dateEmbauche, salaire);
 		this.caAnnuel = caAnnuel;
 	}
 
-	public double getPrimeAnnuelle() {
+	public Commercial(String nom, String prenom, String matricule, DateTime dateEmbauche, Double salaire,
+					  Double caAnnuel, Integer performance) {
+		this(nom, prenom, matricule, dateEmbauche, salaire, caAnnuel);
+		this.performance = performance;
+	}
+
+	public Double getPrimeAnnuelle() {
 		return Math.max(Math.ceil(this.getCaAnnuel() * 0.05), 500);
 	}
 
-	public double getCaAnnuel() {
+	public Double getCaAnnuel() {
 		return caAnnuel;
 	}
 
-	public void setCaAnnuel(double caAnnuel) {
+	public Note equivalenceNote(){
+		switch (performance) {
+			case 0:
+			case 50:
+				return Note.INSUFFISANT;
+			case 100:
+				return Note.PASSABLE;
+			case 150:
+				return Note.BIEN;
+			case 200:
+				return Note.TRES_BIEN;
+			default:
+				return null;
+		}
+	}
+
+	public Boolean performanceEgale(Integer performance){
+		return this.performance.equals(performance);
+	}
+
+	public void setCaAnnuel(Double caAnnuel) {
 		this.caAnnuel = caAnnuel;
+	}
+
+	public void setPerformance(Integer performance) {
+		this.performance = performance;
+	}
+
+	public Integer getPerformance() {
+		return performance;
 	}
 
 	public boolean equals(Object o) {

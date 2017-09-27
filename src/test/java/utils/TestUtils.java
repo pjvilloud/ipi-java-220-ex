@@ -96,6 +96,19 @@ public class TestUtils {
         return resultat;
     }
 
+	public static Object callDeclaredMethod(Object o, String methodName, Object... parameters) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+		Object[] params = parameters.clone();
+		Class[] classes = new Class[parameters.length];
+
+		for(int i = 0; i < parameters.length; i++){
+			classes[i] = params[i].getClass();
+		}
+		Method method = o.getClass().getDeclaredMethod(methodName, classes);
+		method.setAccessible(true);
+		Object resultat = method.invoke(o, parameters);
+		return resultat;
+	}
+
 	public static void checkStaticMethod(Class classe, String nomMethode, Class returnType, int nbParameters) {
 		Method method = null;
 		try {
@@ -119,6 +132,17 @@ public class TestUtils {
 			Assertions.fail("Aucune méthode nommée " + nomMethode + " n'a été trouvée");
 		}
 		Assertions.assertThat(Modifier.isPublic(method.getModifiers())).as("La méthode " + nomMethode + " n'est pas publique").isTrue();
+
+	}
+	public static void checkFinalMethod(Class classe, String nomMethode, Class returnType, Class... parameters) {
+		Method method = null;
+		try {
+			method = classe.getDeclaredMethod(nomMethode, parameters);
+			Assertions.assertThat(method.getReturnType()).as("La méthode " + nomMethode + " doit retourner le bon type").isEqualTo(returnType);
+		} catch (NoSuchMethodException exception) {
+			Assertions.fail("Aucune méthode nommée " + nomMethode + " n'a été trouvée");
+		}
+		Assertions.assertThat(Modifier.isFinal(method.getModifiers())).as("La méthode " + nomMethode + " n'est pas final").isTrue();
 
 	}
 
@@ -237,4 +261,9 @@ public class TestUtils {
    }
 
 
+	public static void checkEnum(String enumName) throws ClassNotFoundException {
+		Class<?> c = Class.forName(enumName);
+
+		Assertions.assertThat(c.isEnum()).isTrue();
+	}
 }

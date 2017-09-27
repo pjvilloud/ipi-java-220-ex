@@ -46,7 +46,7 @@ public class ManagerTest {
 
     @Test
     public void exo402AjoutMembreEquipe() throws Exception {
-        //Ajouter une méthode ajoutTechnicienEquipe qui prend un paramètre un technicien et qui
+        //Ajouter une méthode ajoutTechnicienEquipe qui prend en paramètre un technicien et qui
         //l'ajoute dans l'équipe
 
         Manager d = Manager.class.newInstance();
@@ -98,7 +98,7 @@ public class ManagerTest {
         }
 
         try {
-            TestUtils.invokeSetter(d, "equipe", Stream.of(new Technicien()).collect(Collectors.toSet()));
+            TestUtils.invokeSetter(d, "equipe", Stream.of(Technicien.class.getConstructor(String.class, String.class, String.class, DateTime.class, Double.class, Integer.class).newInstance(null, null, null, null, 0.0, 1)).collect(Collectors.toSet()));
             Assertions.assertThat(TestUtils.callMethod(d, "getPrimeAnnuelle")).isEqualTo(1258.5);
         }
         catch(Exception technicienException){
@@ -106,7 +106,7 @@ public class ManagerTest {
         }
 
         try {
-            TestUtils.invokeSetter(d, "equipe", Stream.of(new Technicien(), new Technicien()).collect(Collectors.toSet()));
+            TestUtils.invokeSetter(d, "equipe", Stream.of(Technicien.class.getConstructor(String.class, String.class, String.class, DateTime.class, Double.class, Integer.class).newInstance(null, null, null, null, 0.0, 1), Technicien.class.getConstructor(String.class, String.class, String.class, DateTime.class, Double.class, Integer.class).newInstance(null, null, null, null, 0.0, 2)).collect(Collectors.toSet()));
             Assertions.assertThat(TestUtils.callMethod(d, "getPrimeAnnuelle")).isEqualTo(1508.5);
         }
         catch(Exception technicienException){
@@ -121,11 +121,14 @@ public class ManagerTest {
         //d'un manager par un pourcentage (Double) avec la méthode précédemment définie dans Employe
         //Voir ensuite les deux dernières lignes du test et essayer de comprendre pourquoi
 
-        TestUtils.checkPrivateMethod(Manager.class, "augmenterSalaireEquipe", void.class, double.class);
+        TestUtils.checkPrivateMethod(Manager.class, "augmenterSalaireEquipe", void.class, Double.class);
 
         Manager d = Manager.class.getConstructor().newInstance();
-        TestUtils.invokeSetter(d, "equipe", Stream.of(new Technicien(), new Technicien()).collect(Collectors.toSet()));
-        TestUtils.callDeclaredMethodPrimitiveParameters(d, "augmenterSalaireEquipe", 0.05d);
+        TestUtils.invokeSetter(d, "equipe", Stream.of(
+                Technicien.class.getConstructor(String.class, String.class, String.class, DateTime.class, Double.class, Integer.class).newInstance(null, null, null, null, 0.0, 1) ,
+                Technicien.class.getConstructor(String.class, String.class, String.class, DateTime.class, Double.class, Integer.class).newInstance(null, null, null, null, 0.0, 2)
+        ).collect(Collectors.toSet()));
+        TestUtils.callMethod(d, "augmenterSalaireEquipe", 0.05d);
         Assertions.assertThat((HashSet)TestUtils.invokeGetter(d, "equipe")).isNotNull();
         Assertions.assertThat((HashSet)TestUtils.invokeGetter(d, "equipe")).hasSize(2);
         Iterator iterator = ((HashSet) TestUtils.invokeGetter(d, "equipe")).iterator();
@@ -133,8 +136,11 @@ public class ManagerTest {
         Assertions.assertThat(TestUtils.invokeGetter(iterator.next(), "salaire")).isEqualTo(0.0);
 
         d = Manager.class.getConstructor().newInstance();
-        TestUtils.invokeSetter(d, "equipe", Stream.of(Technicien.class.getConstructor(String.class, String.class, String.class, DateTime.class, double.class, int.class).newInstance(null, null, null, null, 1000.0, 1), Technicien.class.getConstructor(String.class, String.class, String.class, DateTime.class, double.class, int.class).newInstance(null, null, null, null, 1000.0, 1)).collect(Collectors.toSet()));
-        TestUtils.callDeclaredMethodPrimitiveParameters(d, "augmenterSalaireEquipe", 0.50d);
+        TestUtils.invokeSetter(d, "equipe", Stream.of(
+                Technicien.class.getConstructor(String.class, String.class, String.class, DateTime.class, Double.class, Integer.class).newInstance(null, null, null, null, 1000.0, 1) ,
+                Technicien.class.getConstructor(String.class, String.class, String.class, DateTime.class, Double.class, Integer.class).newInstance(null, null, null, null, 1000.0, 2)
+        ).collect(Collectors.toSet()));
+        TestUtils.callMethod(d, "augmenterSalaireEquipe", 0.50d);
         Assertions.assertThat((HashSet)TestUtils.invokeGetter(d, "equipe")).isNotNull();
         Assertions.assertThat((HashSet)TestUtils.invokeGetter(d, "equipe")).hasSize(2);
         iterator = ((HashSet) TestUtils.invokeGetter(d, "equipe")).iterator();
@@ -147,13 +153,16 @@ public class ManagerTest {
         //Surcharger la méthode augmenterSalaire pour systématiquement augmenter le salaire de l'équipe
         //d'un manager avant d'augmenter le salaire du manager...
 
-        TestUtils.checkMethod(Manager.class, "augmenterSalaire", void.class, double.class);
+        TestUtils.checkMethod(Manager.class, "augmenterSalaire", void.class, Double.class);
 
         Manager d = Manager.class.getConstructor().newInstance();
         TestUtils.invokeSetter(d, "salaire", 1000.0);
 
-        TestUtils.invokeSetter(d, "equipe", Stream.of(new Technicien(), new Technicien()).collect(Collectors.toSet()));
-        TestUtils.callMethodPrimitiveParameters(d, "augmenterSalaire", (double)0.05d);
+        TestUtils.invokeSetter(d, "equipe", Stream.of(
+                Technicien.class.getConstructor(String.class, String.class, String.class, DateTime.class, Double.class, Integer.class).newInstance(null, null, null, null, 0.0, 1) ,
+                Technicien.class.getConstructor(String.class, String.class, String.class, DateTime.class, Double.class, Integer.class).newInstance(null, null, null, null, 0.0, 2)
+        ).collect(Collectors.toSet()));
+        TestUtils.callMethod(d, "augmenterSalaire", 0.05d);
         Assertions.assertThat((HashSet)TestUtils.invokeGetter(d, "equipe")).isNotNull();
         Assertions.assertThat((HashSet)TestUtils.invokeGetter(d, "equipe")).hasSize(2);
         Iterator iterator = ((HashSet) TestUtils.invokeGetter(d, "equipe")).iterator();
@@ -164,13 +173,73 @@ public class ManagerTest {
 
         d = Manager.class.getConstructor().newInstance();
         TestUtils.invokeSetter(d, "salaire", 1000.0);
-        TestUtils.invokeSetter(d, "equipe", Stream.of(Technicien.class.getConstructor(String.class, String.class, String.class, DateTime.class, double.class, int.class).newInstance(null, null, null, null, 1000.0, 1), Technicien.class.getConstructor(String.class, String.class, String.class, DateTime.class, double.class, int.class).newInstance(null, null, null, null, 1000.0, 1)).collect(Collectors.toSet()));
-        TestUtils.callMethodPrimitiveParameters(d, "augmenterSalaire", 0.50d);
+        TestUtils.invokeSetter(d, "equipe", Stream.of(Technicien.class.getConstructor(String.class, String.class, String.class, DateTime.class, Double.class, Integer.class).newInstance(null, null, null, null, 1000.0, 1), Technicien.class.getConstructor(String.class, String.class, String.class, DateTime.class, Double.class, Integer.class).newInstance(null, null, null, null, 1000.0, 2)).collect(Collectors.toSet()));
+        TestUtils.callMethod(d, "augmenterSalaire", 0.50d);
         Assertions.assertThat((HashSet)TestUtils.invokeGetter(d, "equipe")).isNotNull();
         Assertions.assertThat((HashSet)TestUtils.invokeGetter(d, "equipe")).hasSize(2);
         iterator = ((HashSet) TestUtils.invokeGetter(d, "equipe")).iterator();
         Assertions.assertThat(TestUtils.invokeGetter(iterator.next(), "salaire")).isEqualTo(1500.0);
         Assertions.assertThat(TestUtils.invokeGetter(iterator.next(), "salaire")).isEqualTo(1500.0);
         Assertions.assertThat(TestUtils.invokeGetter(d, "salaire")).isEqualTo(1950.0);
+    }
+
+    @Test
+    public void exo407AjoutMembreEquipeSurcharge() throws Exception {
+        //Surcharger ajoutTechnicienEquipe pour permettre l'ajout d'un technicien en passant directement les
+        //paramètres nom, prenom, matricule, date, salaire et grade
+
+        Manager d = Manager.class.newInstance();
+
+        DateTime dateTime = new DateTime();
+        Technicien t = Technicien.class.getConstructor(String.class, String.class, String.class, DateTime.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 2);
+        TestUtils.callMethod(d, "ajoutTechnicienEquipe", "nom", "prenom", "matricule", dateTime, 500.0, 2);
+        Assertions.assertThat(TestUtils.invokeGetter(d, "equipe")).isInstanceOf(HashSet.class);
+        Assertions.assertThat((HashSet)TestUtils.invokeGetter(d, "equipe")).isNotNull();
+        Assertions.assertThat((HashSet)TestUtils.invokeGetter(d, "equipe")).hasSize(1);
+        Assertions.assertThat(((HashSet) TestUtils.invokeGetter(d, "equipe")).iterator().next()).isEqualToComparingFieldByField(t);
+    }
+
+    @Test
+    public void exo408TestStreamLambda() throws Exception {
+        //Ajouter une méthode equipeParGrade renvoyant une liste des techniciens de l'équipe triée par grade décroissant en utilisant les Streams
+        //et les lambdas
+
+        DateTime dateTime = new DateTime();
+        Technicien t3 = Technicien.class.getConstructor(String.class, String.class, String.class, DateTime.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 3);
+        Technicien t = Technicien.class.getConstructor(String.class, String.class, String.class, DateTime.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 1);
+        Technicien t2 = Technicien.class.getConstructor(String.class, String.class, String.class, DateTime.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 2);
+
+        Manager d = Manager.class.newInstance();
+        TestUtils.callMethod(d, "ajoutTechnicienEquipe", t3);
+        TestUtils.callMethod(d, "ajoutTechnicienEquipe", t);
+        TestUtils.callMethod(d, "ajoutTechnicienEquipe", t2);
+
+        Object listeTech = TestUtils.callMethod(d, "equipeParGrade");
+        Assertions.assertThat(listeTech).isInstanceOf(List.class);
+        List<Technicien> liste = (List)listeTech;
+        Assertions.assertThat(liste.size()).isEqualTo(3);
+
+        Assertions.assertThat(TestUtils.invokeGetter(liste.get(0), "grade")).isEqualTo(3);
+        Assertions.assertThat(TestUtils.invokeGetter(liste.get(1), "grade")).isEqualTo(2);
+        Assertions.assertThat(TestUtils.invokeGetter(liste.get(2), "grade")).isEqualTo(1);
+
+    }
+
+    @Test
+    public void exo409TestStreamLambdaReference() throws Exception{
+        //Ajouter une méthode salaireEquipeGrade1 qui renvoie la somme des salaires des membres de l'équipe dont le grade
+        //est égal à 1 en une ligne avec des lambdas
+
+        DateTime dateTime = new DateTime();
+        Technicien t3 = Technicien.class.getConstructor(String.class, String.class, String.class, DateTime.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 400.0, 1);
+        Technicien t = Technicien.class.getConstructor(String.class, String.class, String.class, DateTime.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 2);
+        Technicien t2 = Technicien.class.getConstructor(String.class, String.class, String.class, DateTime.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 600.0, 1);
+
+        Manager d = Manager.class.newInstance();
+        TestUtils.callMethod(d, "ajoutTechnicienEquipe", t3);
+        TestUtils.callMethod(d, "ajoutTechnicienEquipe", t);
+        TestUtils.callMethod(d, "ajoutTechnicienEquipe", t2);
+
+        Assertions.assertThat(TestUtils.callMethod(d, "salaireEquipeGrade1")).isEqualTo(1000.0);
     }
 }

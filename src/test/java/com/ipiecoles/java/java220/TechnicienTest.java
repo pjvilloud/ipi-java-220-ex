@@ -31,9 +31,9 @@ public class TechnicienTest {
 		//Modifier la classe Technicien pour ajouter un attribut grade de type int
 		//avec son getter et son setter
 		
-		TestUtils.checkPrivateField(Technicien.class, "grade", int.class);
-		TestUtils.checkMethod(Technicien.class, "getGrade", int.class);
-		TestUtils.checkMethod(Technicien.class, "setGrade", void.class, int.class);
+		TestUtils.checkPrivateField(Technicien.class, "grade", Integer.class);
+		TestUtils.checkMethod(Technicien.class, "getGrade", Integer.class);
+		TestUtils.checkMethod(Technicien.class, "setGrade", void.class, Integer.class);
 		Technicien d = Technicien.class.newInstance();
 		TestUtils.invokeSetter(d, "grade", 2);
 		Assertions.assertThat(TestUtils.invokeGetter(d, "grade")).isEqualTo(2);
@@ -41,10 +41,12 @@ public class TechnicienTest {
 
 	@Test
 	public void exo303Constructeur() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-
-		TestUtils.checkConstructor(Technicien.class, String.class, String.class, String.class, DateTime.class, double.class, int.class);
+		//Créer un constructeur pour la classe Technicien qui initialise tous les attributs
+		//hérités de la classe Employe en faisant appel au constructeur d'Employe
+		//et qui initialise également l'attribut grade
+		TestUtils.checkConstructor(Technicien.class, String.class, String.class, String.class, DateTime.class, Double.class, Integer.class);
 		DateTime dateTime = DateTime.now();
-		Technicien d = Technicien.class.getConstructor(String.class, String.class, String.class, DateTime.class, double.class, int.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 2);
+		Technicien d = Technicien.class.getConstructor(String.class, String.class, String.class, DateTime.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 2);
 		Assertions.assertThat(TestUtils.invokeGetter(d, "nom")).isEqualTo("nom");
 		Assertions.assertThat(TestUtils.invokeGetter(d, "prenom")).isEqualTo("prenom");
 		Assertions.assertThat(TestUtils.invokeGetter(d, "matricule")).isEqualTo("matricule");
@@ -55,7 +57,13 @@ public class TechnicienTest {
 
 	@Test
 	public void exo304SetGrade() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-		Technicien d = Technicien.class.getConstructor().newInstance();
+		//Modifier le setter de l'attribut grade pour qu'il lève une exception de la classe TechnicienException (à créer)
+		//et dont le message est :
+		//"Le grade doit être compris entre 1 et 5 : X, technicien : Technicien{grade=X} Employe{nom='NOM', prenom='PRENOM', matricule='MATRICULE', dateEmbauche=DATE, salaire=SALAIRE}"
+		//Avec X = valeur incorrecte passée au setter et NOM, PRENOM... les valeurs des attributs d'Employe
+		//Astuce : Ajouter une méthode toString à Technicien
+		DateTime dateTime = new DateTime(0L);
+		Technicien d = Technicien.class.getConstructor(String.class, String.class, String.class, DateTime.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 2);
 
 		try {
 			TestUtils.invokeSetter(d, "grade", 0);
@@ -63,7 +71,7 @@ public class TechnicienTest {
 		}
 		catch(Exception technicienException){
 			Assertions.assertThat(technicienException.getCause()).isInstanceOf(TechnicienException.class);
-			Assertions.assertThat(technicienException.getCause().getMessage()).startsWith("Le grade doit être compris entre 1 et 5 : 0, technicien");
+			Assertions.assertThat(technicienException.getCause().getMessage()).isEqualTo("Le grade doit être compris entre 1 et 5 : 0, technicien : Technicien{grade=2} Employe{nom='nom', prenom='prenom', matricule='matricule', dateEmbauche=1970-01-01T01:00:00.000+01:00, salaire=500.0}");
 		}
 
 		try {
@@ -72,7 +80,7 @@ public class TechnicienTest {
 		}
 		catch(Exception technicienException){
 			Assertions.assertThat(technicienException.getCause()).isInstanceOf(TechnicienException.class);
-			Assertions.assertThat(technicienException.getCause().getMessage()).startsWith("Le grade doit être compris entre 1 et 5 : 6, technicien");
+			Assertions.assertThat(technicienException.getCause().getMessage()).isEqualTo("Le grade doit être compris entre 1 et 5 : 6, technicien : Technicien{grade=2} Employe{nom='nom', prenom='prenom', matricule='matricule', dateEmbauche=1970-01-01T01:00:00.000+01:00, salaire=500.0}");
 		}
 
 		try {
@@ -86,9 +94,9 @@ public class TechnicienTest {
 
 	@Test
 	public void exo305SetSalaire() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-		//Surcharger le setter de l'attribut salaire pour qu'il renvoie la valeur de l'attribut salaire,
+		//Redéfinir le setter de l'attribut salaire pour qu'il renvoie la valeur de l'attribut salaire,
 		//auquel on ajoute la bonification du grade qui est égale à une augmentation de X0% par rapport au salaire de base :
-		//Ex : Grade 3 : 30% d'augmentation
+		//Ex : Grade 3 : 30% d'augmentation : 1000.0 de salaire avec grade 1 : 1100.0
 
 		Technicien d = Technicien.class.getConstructor().newInstance();
 		try {
@@ -158,4 +166,34 @@ public class TechnicienTest {
 		}
 
 	}
+
+	@Test
+	public void exo308TestImplementComparable() throws Exception{
+		//Implémenter l'interface Comparable pour que l'on puisse comparer deux Techniciens en fonction de leur grade
+		//plus le grade est haut, plus le technicien est compétent
+
+		Assertions.assertThat(Technicien.class.getInterfaces().length).isEqualTo(1);
+		Assertions.assertThat(Technicien.class.getInterfaces()[0].getSimpleName()).isEqualTo("Comparable");
+
+		Technicien d = Technicien.class.getConstructor().newInstance();
+		TestUtils.invokeSetter(d, "grade", 3);
+
+		Technicien d2 = Technicien.class.getConstructor().newInstance();
+		TestUtils.invokeSetter(d2, "grade", 2);
+
+		Assertions.assertThat(TestUtils.callMethod(d, "compareTo", d2)).isEqualTo(-1);
+		Assertions.assertThat(TestUtils.callMethod(d, "compareTo", d)).isEqualTo(0);
+		Assertions.assertThat(TestUtils.callMethod(d2, "compareTo", d)).isEqualTo(1);
+	}
+
+
+	//Méthode protected avc exemple autre package
+
+	//Polymorphisme
+
+	//Programmation générique
+
+	//Interface avec code
+
+	//Classe interne
 }

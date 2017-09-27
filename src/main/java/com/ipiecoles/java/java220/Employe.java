@@ -2,6 +2,8 @@ package com.ipiecoles.java.java220;
 
 import org.joda.time.DateTime;
 
+import java.util.Objects;
+
 public abstract class Employe {
 	
 	private String nom;
@@ -12,13 +14,13 @@ public abstract class Employe {
 	
 	private DateTime dateEmbauche;
 	
-	private double salaire;
+	private Double salaire = Entreprise.SALAIRE_BASE;
 	
 	public Employe() {
 		
 	}
 	
-	public Employe(String nom, String prenom, String matricule, DateTime dateEmbauche, double salaire) {
+	public Employe(String nom, String prenom, String matricule, DateTime dateEmbauche, Double salaire) {
 		this.nom = nom;
 		this.prenom = prenom;
 		this.matricule = matricule;
@@ -26,17 +28,17 @@ public abstract class Employe {
 		this.salaire = salaire;
 	}
 
-	public int getNombreAnneeAnciennete() {
+	public final Integer getNombreAnneeAnciennete() {
 		return DateTime.now().getYear() - dateEmbauche.getYear();
 	}
 	
-	public int getNbConges() {
+	public Integer getNbConges() {
 		return Entreprise.NB_CONGES_BASE;
 	}
 	
-	public abstract double getPrimeAnnuelle();
+	public abstract Double getPrimeAnnuelle();
 
-	public void augmenterSalaire(double pourcentage) {
+	public void augmenterSalaire(Double pourcentage) {
 		this.salaire = this.getSalaire() * (1 + pourcentage);
 	}
 	
@@ -103,14 +105,14 @@ public abstract class Employe {
 	/**
 	 * @return the salaire
 	 */
-	public double getSalaire() {
+	public Double getSalaire() {
 		return salaire;
 	}
 	
 	/**
 	 * @param salaire the salaire to set
 	 */
-	public void setSalaire(double salaire) {
+	public void setSalaire(Double salaire) {
 		this.salaire = salaire;
 	}
 
@@ -141,4 +143,8 @@ public abstract class Employe {
 
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(nom, prenom, matricule, dateEmbauche, salaire);
+	}
 }
