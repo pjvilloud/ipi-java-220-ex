@@ -1,7 +1,7 @@
 package com.ipiecoles.java.java220;
 
 import com.ipiecoles.java.java220.exceptions.TechnicienException;
-import org.joda.time.LocalDateTime;
+import org.joda.time.LocalDate;
 
 import java.util.HashSet;
 import java.util.List;
@@ -15,7 +15,7 @@ public class Manager extends Employe {
 		equipe.add(technicien);
 	}
 
-	public void ajoutTechnicienEquipe(String nom, String prenom, String matricule, LocalDateTime dateEmbauche, Double salaire, Integer grade) throws TechnicienException {
+	public void ajoutTechnicienEquipe(String nom, String prenom, String matricule, LocalDate dateEmbauche, Double salaire, Integer grade) throws TechnicienException {
 		this.ajoutTechnicienEquipe(new Technicien(nom, prenom, matricule, dateEmbauche, salaire, grade));
 	}
 	

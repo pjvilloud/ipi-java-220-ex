@@ -2,7 +2,7 @@ package com.ipiecoles.java.java220;
 
 import com.ipiecoles.java.java220.exceptions.TechnicienException;
 import org.assertj.core.api.Assertions;
-import org.joda.time.LocalDateTime;
+import org.joda.time.LocalDate;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -44,9 +44,9 @@ public class TechnicienTest {
 		//Créer un constructeur pour la classe Technicien qui initialise tous les attributs
 		//hérités de la classe Employe en faisant appel au constructeur d'Employe
 		//et qui initialise également l'attribut grade
-		TestUtils.checkConstructor(Technicien.class, String.class, String.class, String.class, LocalDateTime.class, Double.class, Integer.class);
-		LocalDateTime dateTime = LocalDateTime.now();
-		Technicien d = Technicien.class.getConstructor(String.class, String.class, String.class, LocalDateTime.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 2);
+		TestUtils.checkConstructor(Technicien.class, String.class, String.class, String.class, LocalDate.class, Double.class, Integer.class);
+		LocalDate dateTime = LocalDate.now();
+		Technicien d = Technicien.class.getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 2);
 		Assertions.assertThat(TestUtils.invokeGetter(d, "nom")).isEqualTo("nom");
 		Assertions.assertThat(TestUtils.invokeGetter(d, "prenom")).isEqualTo("prenom");
 		Assertions.assertThat(TestUtils.invokeGetter(d, "matricule")).isEqualTo("matricule");
@@ -62,8 +62,8 @@ public class TechnicienTest {
 		//"Le grade doit être compris entre 1 et 5 : X, technicien : Technicien{grade=X} Employe{nom='NOM', prenom='PRENOM', matricule='MATRICULE', dateEmbauche=DATE, salaire=SALAIRE}"
 		//Avec X = valeur incorrecte passée au setter et NOM, PRENOM... les valeurs des attributs d'Employe
 		//Astuce : Ajouter une méthode toString à Technicien
-		LocalDateTime dateTime = new LocalDateTime(0L);
-		Technicien d = Technicien.class.getConstructor(String.class, String.class, String.class, LocalDateTime.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 2);
+		LocalDate dateTime = new LocalDate(0L);
+		Technicien d = Technicien.class.getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 2);
 
 		try {
 			TestUtils.invokeSetter(d, "grade", 0);
@@ -71,7 +71,7 @@ public class TechnicienTest {
 		}
 		catch(Exception technicienException){
 			Assertions.assertThat(technicienException.getCause()).isInstanceOf(TechnicienException.class);
-			Assertions.assertThat(technicienException.getCause().getMessage()).isEqualTo("Le grade doit être compris entre 1 et 5 : 0, technicien : Technicien{grade=2} Employe{nom='nom', prenom='prenom', matricule='matricule', dateEmbauche=1970-01-01T01:00:00.000, salaire=500.0}");
+			Assertions.assertThat(technicienException.getCause().getMessage()).isEqualTo("Le grade doit être compris entre 1 et 5 : 0, technicien : Technicien{grade=2} Employe{nom='nom', prenom='prenom', matricule='matricule', dateEmbauche=1970-01-01, salaire=500.0}");
 		}
 
 		try {
@@ -80,7 +80,7 @@ public class TechnicienTest {
 		}
 		catch(Exception technicienException){
 			Assertions.assertThat(technicienException.getCause()).isInstanceOf(TechnicienException.class);
-			Assertions.assertThat(technicienException.getCause().getMessage()).isEqualTo("Le grade doit être compris entre 1 et 5 : 6, technicien : Technicien{grade=2} Employe{nom='nom', prenom='prenom', matricule='matricule', dateEmbauche=1970-01-01T01:00:00.000, salaire=500.0}");
+			Assertions.assertThat(technicienException.getCause().getMessage()).isEqualTo("Le grade doit être compris entre 1 et 5 : 6, technicien : Technicien{grade=2} Employe{nom='nom', prenom='prenom', matricule='matricule', dateEmbauche=1970-01-01, salaire=500.0}");
 		}
 
 		try {
@@ -125,7 +125,7 @@ public class TechnicienTest {
 
 		Technicien d = Technicien.class.getConstructor().newInstance();
 		try {
-			TestUtils.invokeSetter(d, "dateEmbauche", LocalDateTime.now());
+			TestUtils.invokeSetter(d, "dateEmbauche", LocalDate.now());
 			Assertions.assertThat(TestUtils.callMethod(d, "getNbConges")).isEqualTo(TestUtils.getStaticFinalField(Entreprise.class, "NB_CONGES_BASE"));
 		}
 		catch(Exception technicienException){
@@ -133,7 +133,7 @@ public class TechnicienTest {
 		}
 
 		try {
-			TestUtils.invokeSetter(d, "dateEmbauche", LocalDateTime.now().minusYears(4));
+			TestUtils.invokeSetter(d, "dateEmbauche", LocalDate.now().minusYears(4));
 			Assertions.assertThat(TestUtils.callMethod(d, "getNbConges")).isEqualTo((Integer)TestUtils.getStaticFinalField(Entreprise.class, "NB_CONGES_BASE") + 4);
 		}
 		catch(Exception technicienException){
@@ -149,7 +149,7 @@ public class TechnicienTest {
 		Technicien d = Technicien.class.getConstructor().newInstance();
 		try {
 			TestUtils.invokeSetter(d, "grade", 3);
-			TestUtils.invokeSetter(d, "dateEmbauche", LocalDateTime.now());
+			TestUtils.invokeSetter(d, "dateEmbauche", LocalDate.now());
 			Assertions.assertThat(TestUtils.callMethod(d, "getPrimeAnnuelle")).isEqualTo(2319.55);//1008.5 + 1311.05 + 100
 		}
 		catch(Exception technicienException){
@@ -158,7 +158,7 @@ public class TechnicienTest {
 
 		try {
 			TestUtils.invokeSetter(d, "grade", 5);
-			TestUtils.invokeSetter(d, "dateEmbauche", LocalDateTime.now().minusYears(3));
+			TestUtils.invokeSetter(d, "dateEmbauche", LocalDate.now().minusYears(3));
 			Assertions.assertThat(TestUtils.callMethod(d, "getPrimeAnnuelle")).isEqualTo(2821.25);//1008.5 + 1512.75 + 300
 		}
 		catch(Exception technicienException){

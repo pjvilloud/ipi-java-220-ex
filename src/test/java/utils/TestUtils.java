@@ -64,6 +64,19 @@ public class TestUtils {
 		for(int i = 0; i < parameters.length; i++){
 			classes[i] = params[i].getClass();
 		}
+		Method method = o.getClass().getMethod(methodName, classes);
+		method.setAccessible(true);
+		Object resultat = method.invoke(o, parameters);
+		return resultat;
+	}
+
+	public static Object callDeclaredMethod(Object o, String methodName, Object... parameters) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+		Object[] params = parameters.clone();
+		Class[] classes = new Class[parameters.length];
+
+		for(int i = 0; i < parameters.length; i++){
+			classes[i] = params[i].getClass();
+		}
 		Method method = o.getClass().getDeclaredMethod(methodName, classes);
 		method.setAccessible(true);
 		Object resultat = method.invoke(o, parameters);
@@ -95,19 +108,6 @@ public class TestUtils {
         Object resultat = method.invoke(o, parameters);
         return resultat;
     }
-
-	public static Object callDeclaredMethod(Object o, String methodName, Object... parameters) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-		Object[] params = parameters.clone();
-		Class[] classes = new Class[parameters.length];
-
-		for(int i = 0; i < parameters.length; i++){
-			classes[i] = params[i].getClass();
-		}
-		Method method = o.getClass().getDeclaredMethod(methodName, classes);
-		method.setAccessible(true);
-		Object resultat = method.invoke(o, parameters);
-		return resultat;
-	}
 
 	public static void checkStaticMethod(Class classe, String nomMethode, Class returnType, int nbParameters) {
 		Method method = null;

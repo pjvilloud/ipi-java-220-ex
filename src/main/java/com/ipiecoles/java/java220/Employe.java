@@ -1,6 +1,7 @@
 package com.ipiecoles.java.java220;
 
-import org.joda.time.LocalDateTime;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDate;
 
 import java.util.Objects;
 
@@ -12,7 +13,7 @@ public abstract class Employe {
 
 	private String matricule;
 	
-	private LocalDateTime dateEmbauche;
+	private LocalDate dateEmbauche;
 	
 	private Double salaire = Entreprise.SALAIRE_BASE;
 	
@@ -20,7 +21,7 @@ public abstract class Employe {
 		
 	}
 	
-	public Employe(String nom, String prenom, String matricule, LocalDateTime dateEmbauche, Double salaire) {
+	public Employe(String nom, String prenom, String matricule, LocalDate dateEmbauche, Double salaire) {
 		this.nom = nom;
 		this.prenom = prenom;
 		this.matricule = matricule;
@@ -29,7 +30,7 @@ public abstract class Employe {
 	}
 
 	public final Integer getNombreAnneeAnciennete() {
-		return LocalDateTime.now().getYear() - dateEmbauche.getYear();
+		return LocalDate.now().getYear() - dateEmbauche.getYear();
 	}
 	
 	public Integer getNbConges() {
@@ -87,7 +88,7 @@ public abstract class Employe {
 	/**
 	 * @return the dateEmbauche
 	 */
-	public LocalDateTime getDateEmbauche() {
+	public LocalDate getDateEmbauche() {
 		return dateEmbauche;
 	}
 
@@ -95,8 +96,8 @@ public abstract class Employe {
 	 * @param dateEmbauche the dateEmbauche to set
 	 * @throws Exception 
 	 */
-	public void setDateEmbauche(LocalDateTime dateEmbauche) throws Exception {
-		if(dateEmbauche != null && dateEmbauche.isAfter(LocalDateTime.now())) {
+	public void setDateEmbauche(LocalDate dateEmbauche) throws Exception {
+		if(dateEmbauche != null && dateEmbauche.isAfter(LocalDate.now())) {
 			throw new Exception("La date d'embauche ne peut être postérieure à la date courante");
 		}
 		this.dateEmbauche = dateEmbauche;

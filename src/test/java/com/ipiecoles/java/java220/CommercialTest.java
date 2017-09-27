@@ -1,7 +1,7 @@
 package com.ipiecoles.java.java220;
 
 import org.assertj.core.api.Assertions;
-import org.joda.time.LocalDateTime;
+import org.joda.time.LocalDate;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -72,9 +72,9 @@ public class CommercialTest {
 		//hérités de la classe Employe en faisant appel au constructeur d'Employe
 		//et qui initialise également l'attribut caAnnuel
 		
-		TestUtils.checkConstructor(Commercial.class, String.class, String.class, String.class, LocalDateTime.class, Double.class, Double.class);
-		LocalDateTime dateTime = LocalDateTime.now();
-		Commercial d = Commercial.class.getConstructor(String.class, String.class, String.class, LocalDateTime.class, Double.class, Double.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 50000.0);
+		TestUtils.checkConstructor(Commercial.class, String.class, String.class, String.class, LocalDate.class, Double.class, Double.class);
+		LocalDate dateTime = LocalDate.now();
+		Commercial d = Commercial.class.getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Double.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 50000.0);
 		Assertions.assertThat(TestUtils.invokeGetter(d, "nom")).isEqualTo("nom");
 		Assertions.assertThat(TestUtils.invokeGetter(d, "prenom")).isEqualTo("prenom");
 		Assertions.assertThat(TestUtils.invokeGetter(d, "matricule")).isEqualTo("matricule");
@@ -88,13 +88,13 @@ public class CommercialTest {
 		//Surcharger la méthode equals pour permettre de tester l'égalité entre deux instances de la classe Commercial.
 		//Appeler la méthode equals de la classe Employe
 
-		LocalDateTime dateTime = LocalDateTime.now();
-		Commercial c = Commercial.class.getConstructor(String.class, String.class, String.class, LocalDateTime.class, Double.class, Double.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 90000.0);
-		Commercial c2 = Commercial.class.getConstructor(String.class, String.class, String.class, LocalDateTime.class, Double.class, Double.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 50000.0);
+		LocalDate dateTime = LocalDate.now();
+		Commercial c = Commercial.class.getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Double.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 90000.0);
+		Commercial c2 = Commercial.class.getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Double.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 50000.0);
 		Assertions.assertThat(c).isNotEqualTo(c2);
 
-		c = Commercial.class.getConstructor(String.class, String.class, String.class, LocalDateTime.class, Double.class, Double.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 50000.0);
-		c2 = Commercial.class.getConstructor(String.class, String.class, String.class, LocalDateTime.class, Double.class, Double.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 50000.0);
+		c = Commercial.class.getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Double.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 50000.0);
+		c2 = Commercial.class.getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Double.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 50000.0);
 		Assertions.assertThat(c).isEqualTo(c2);
 	}
 
@@ -103,12 +103,12 @@ public class CommercialTest {
 		//Ajouter un attribut Integer performance
 		//Ajouter une méthode performanceEgale prenant un Integer en paramètre, dans Commercial qui renvoie true si la performance du commercial
 		//est égale à celle passée en paramètre, false sinon
-		LocalDateTime dateTime = LocalDateTime.now();
-		Commercial c = Commercial.class.getConstructor(String.class, String.class, String.class, LocalDateTime.class, Double.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 0.0, 50);
+		LocalDate dateTime = LocalDate.now();
+		Commercial c = Commercial.class.getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 0.0, 50);
 
 		Assertions.assertThat(TestUtils.callMethod(c, "performanceEgale", 50)).isEqualTo(true);
 
-		c = Commercial.class.getConstructor(String.class, String.class, String.class, LocalDateTime.class, Double.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 9000000.0, new Integer (150));
+		c = Commercial.class.getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 9000000.0, new Integer (150));
 
 		Assertions.assertThat(TestUtils.callMethod(c, "performanceEgale", new Integer(150))).isEqualTo(true);
 
@@ -125,8 +125,8 @@ public class CommercialTest {
 
 		TestUtils.checkEnum("com.ipiecoles.java.java220.Note");
 
-		LocalDateTime dateTime = LocalDateTime.now();
-		Commercial c = Commercial.class.getConstructor(String.class, String.class, String.class, LocalDateTime.class, Double.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 0.0, 50);
+		LocalDate dateTime = LocalDate.now();
+		Commercial c = Commercial.class.getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 0.0, 50);
 
 		Assertions.assertThat(TestUtils.callMethod(c, "equivalenceNote")).isEqualTo(Class.forName("com.ipiecoles.java.java220.Note").getEnumConstants()[0]);
 

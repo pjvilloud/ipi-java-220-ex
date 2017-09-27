@@ -1,7 +1,7 @@
 package com.ipiecoles.java.java220;
 
 import org.assertj.core.api.Assertions;
-import org.joda.time.LocalDateTime;
+import org.joda.time.LocalDate;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -98,7 +98,7 @@ public class ManagerTest {
         }
 
         try {
-            TestUtils.invokeSetter(d, "equipe", Stream.of(Technicien.class.getConstructor(String.class, String.class, String.class, LocalDateTime.class, Double.class, Integer.class).newInstance(null, null, null, null, 0.0, 1)).collect(Collectors.toSet()));
+            TestUtils.invokeSetter(d, "equipe", Stream.of(Technicien.class.getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Integer.class).newInstance(null, null, null, null, 0.0, 1)).collect(Collectors.toSet()));
             Assertions.assertThat(TestUtils.callMethod(d, "getPrimeAnnuelle")).isEqualTo(1258.5);
         }
         catch(Exception technicienException){
@@ -106,7 +106,7 @@ public class ManagerTest {
         }
 
         try {
-            TestUtils.invokeSetter(d, "equipe", Stream.of(Technicien.class.getConstructor(String.class, String.class, String.class, LocalDateTime.class, Double.class, Integer.class).newInstance(null, null, null, null, 0.0, 1), Technicien.class.getConstructor(String.class, String.class, String.class, LocalDateTime.class, Double.class, Integer.class).newInstance(null, null, null, null, 0.0, 2)).collect(Collectors.toSet()));
+            TestUtils.invokeSetter(d, "equipe", Stream.of(Technicien.class.getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Integer.class).newInstance(null, null, null, null, 0.0, 1), Technicien.class.getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Integer.class).newInstance(null, null, null, null, 0.0, 2)).collect(Collectors.toSet()));
             Assertions.assertThat(TestUtils.callMethod(d, "getPrimeAnnuelle")).isEqualTo(1508.5);
         }
         catch(Exception technicienException){
@@ -125,10 +125,10 @@ public class ManagerTest {
 
         Manager d = Manager.class.getConstructor().newInstance();
         TestUtils.invokeSetter(d, "equipe", Stream.of(
-                Technicien.class.getConstructor(String.class, String.class, String.class, LocalDateTime.class, Double.class, Integer.class).newInstance(null, null, null, null, 0.0, 1) ,
-                Technicien.class.getConstructor(String.class, String.class, String.class, LocalDateTime.class, Double.class, Integer.class).newInstance(null, null, null, null, 0.0, 2)
+                Technicien.class.getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Integer.class).newInstance(null, null, null, null, 0.0, 1) ,
+                Technicien.class.getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Integer.class).newInstance(null, null, null, null, 0.0, 2)
         ).collect(Collectors.toSet()));
-        TestUtils.callMethod(d, "augmenterSalaireEquipe", 0.05d);
+        TestUtils.callDeclaredMethod(d, "augmenterSalaireEquipe", 0.05d);
         Assertions.assertThat((HashSet)TestUtils.invokeGetter(d, "equipe")).isNotNull();
         Assertions.assertThat((HashSet)TestUtils.invokeGetter(d, "equipe")).hasSize(2);
         Iterator iterator = ((HashSet) TestUtils.invokeGetter(d, "equipe")).iterator();
@@ -137,10 +137,10 @@ public class ManagerTest {
 
         d = Manager.class.getConstructor().newInstance();
         TestUtils.invokeSetter(d, "equipe", Stream.of(
-                Technicien.class.getConstructor(String.class, String.class, String.class, LocalDateTime.class, Double.class, Integer.class).newInstance(null, null, null, null, 1000.0, 1) ,
-                Technicien.class.getConstructor(String.class, String.class, String.class, LocalDateTime.class, Double.class, Integer.class).newInstance(null, null, null, null, 1000.0, 2)
+                Technicien.class.getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Integer.class).newInstance(null, null, null, null, 1000.0, 1) ,
+                Technicien.class.getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Integer.class).newInstance(null, null, null, null, 1000.0, 2)
         ).collect(Collectors.toSet()));
-        TestUtils.callMethod(d, "augmenterSalaireEquipe", 0.50d);
+        TestUtils.callDeclaredMethod(d, "augmenterSalaireEquipe", 0.50d);
         Assertions.assertThat((HashSet)TestUtils.invokeGetter(d, "equipe")).isNotNull();
         Assertions.assertThat((HashSet)TestUtils.invokeGetter(d, "equipe")).hasSize(2);
         iterator = ((HashSet) TestUtils.invokeGetter(d, "equipe")).iterator();
@@ -159,8 +159,8 @@ public class ManagerTest {
         TestUtils.invokeSetter(d, "salaire", 1000.0);
 
         TestUtils.invokeSetter(d, "equipe", Stream.of(
-                Technicien.class.getConstructor(String.class, String.class, String.class, LocalDateTime.class, Double.class, Integer.class).newInstance(null, null, null, null, 0.0, 1) ,
-                Technicien.class.getConstructor(String.class, String.class, String.class, LocalDateTime.class, Double.class, Integer.class).newInstance(null, null, null, null, 0.0, 2)
+                Technicien.class.getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Integer.class).newInstance(null, null, null, null, 0.0, 1) ,
+                Technicien.class.getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Integer.class).newInstance(null, null, null, null, 0.0, 2)
         ).collect(Collectors.toSet()));
         TestUtils.callMethod(d, "augmenterSalaire", 0.05d);
         Assertions.assertThat((HashSet)TestUtils.invokeGetter(d, "equipe")).isNotNull();
@@ -173,7 +173,7 @@ public class ManagerTest {
 
         d = Manager.class.getConstructor().newInstance();
         TestUtils.invokeSetter(d, "salaire", 1000.0);
-        TestUtils.invokeSetter(d, "equipe", Stream.of(Technicien.class.getConstructor(String.class, String.class, String.class, LocalDateTime.class, Double.class, Integer.class).newInstance(null, null, null, null, 1000.0, 1), Technicien.class.getConstructor(String.class, String.class, String.class, LocalDateTime.class, Double.class, Integer.class).newInstance(null, null, null, null, 1000.0, 2)).collect(Collectors.toSet()));
+        TestUtils.invokeSetter(d, "equipe", Stream.of(Technicien.class.getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Integer.class).newInstance(null, null, null, null, 1000.0, 1), Technicien.class.getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Integer.class).newInstance(null, null, null, null, 1000.0, 2)).collect(Collectors.toSet()));
         TestUtils.callMethod(d, "augmenterSalaire", 0.50d);
         Assertions.assertThat((HashSet)TestUtils.invokeGetter(d, "equipe")).isNotNull();
         Assertions.assertThat((HashSet)TestUtils.invokeGetter(d, "equipe")).hasSize(2);
@@ -190,8 +190,8 @@ public class ManagerTest {
 
         Manager d = Manager.class.newInstance();
 
-        LocalDateTime dateTime = new LocalDateTime();
-        Technicien t = Technicien.class.getConstructor(String.class, String.class, String.class, LocalDateTime.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 2);
+        LocalDate dateTime = new LocalDate();
+        Technicien t = Technicien.class.getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 2);
         TestUtils.callMethod(d, "ajoutTechnicienEquipe", "nom", "prenom", "matricule", dateTime, 500.0, 2);
         Assertions.assertThat(TestUtils.invokeGetter(d, "equipe")).isInstanceOf(HashSet.class);
         Assertions.assertThat((HashSet)TestUtils.invokeGetter(d, "equipe")).isNotNull();
@@ -204,10 +204,10 @@ public class ManagerTest {
         //Ajouter une méthode equipeParGrade renvoyant une liste des techniciens de l'équipe triée par grade décroissant en utilisant les Streams
         //et les lambdas
 
-        LocalDateTime dateTime = new LocalDateTime();
-        Technicien t3 = Technicien.class.getConstructor(String.class, String.class, String.class, LocalDateTime.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 3);
-        Technicien t = Technicien.class.getConstructor(String.class, String.class, String.class, LocalDateTime.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 1);
-        Technicien t2 = Technicien.class.getConstructor(String.class, String.class, String.class, LocalDateTime.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 2);
+        LocalDate dateTime = new LocalDate();
+        Technicien t3 = Technicien.class.getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 3);
+        Technicien t = Technicien.class.getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 1);
+        Technicien t2 = Technicien.class.getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 2);
 
         Manager d = Manager.class.newInstance();
         TestUtils.callMethod(d, "ajoutTechnicienEquipe", t3);
@@ -230,10 +230,10 @@ public class ManagerTest {
         //Ajouter une méthode salaireEquipeGrade1 qui renvoie la somme des salaires des membres de l'équipe dont le grade
         //est égal à 1 en une ligne avec des lambdas
 
-        LocalDateTime dateTime = new LocalDateTime();
-        Technicien t3 = Technicien.class.getConstructor(String.class, String.class, String.class, LocalDateTime.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 400.0, 1);
-        Technicien t = Technicien.class.getConstructor(String.class, String.class, String.class, LocalDateTime.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 2);
-        Technicien t2 = Technicien.class.getConstructor(String.class, String.class, String.class, LocalDateTime.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 600.0, 1);
+        LocalDate dateTime = new LocalDate();
+        Technicien t3 = Technicien.class.getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 400.0, 1);
+        Technicien t = Technicien.class.getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 2);
+        Technicien t2 = Technicien.class.getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 600.0, 1);
 
         Manager d = Manager.class.newInstance();
         TestUtils.callMethod(d, "ajoutTechnicienEquipe", t3);
