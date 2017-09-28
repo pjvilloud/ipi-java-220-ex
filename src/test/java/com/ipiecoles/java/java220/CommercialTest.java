@@ -15,13 +15,13 @@ import java.util.Arrays;
 public class CommercialTest {
 
 	@Test
-	public void exo201TestHeritageEmploye() throws IllegalAccessException {
+	public void exo201TestHeritageEmploye() throws Exception {
 		//Faire en sorte que la classe Commercial hérite de la classe Employé
 		//Analyser le message d'erreur remonté par l'IDE et utiliser l'IDE pour
 		//résoudre le problème
 		
-		Assertions.assertThat(Commercial.class.getSuperclass()).isEqualTo(Employe.class);
-		TestUtils.checkNotAbstractClass(Commercial.class);
+		Assertions.assertThat(TestUtils.getClasse("Commercial").getSuperclass()).isEqualTo(TestUtils.getClasse("Employe"));
+		TestUtils.checkNotAbstractClass("Commercial");
 	}
 	
 	@Test
@@ -32,7 +32,7 @@ public class CommercialTest {
 		TestUtils.checkPrivateField("Commercial", "caAnnuel", TestUtils.DOUBLE);
 		TestUtils.checkMethod("Commercial", "getCaAnnuel", TestUtils.DOUBLE);
 		TestUtils.checkMethod("Commercial", "setCaAnnuel", "void", TestUtils.DOUBLE);
-		Commercial d = Commercial.class.newInstance();
+		Object d = TestUtils.getClasse("Commercial").newInstance();
 		TestUtils.invokeSetter(d, "caAnnuel", 500.2);
 		Assertions.assertThat(TestUtils.invokeGetter(d, "caAnnuel")).isEqualTo(500.2);
 	}
@@ -44,8 +44,8 @@ public class CommercialTest {
 		//500 € même en cas de chiffre d'affaire nul
 		//Faire en sorte que la prime soit toujours arrondi à l'euro supérieur
 		//Voir la classe Math
-		
-		Commercial d = Commercial.class.newInstance();
+
+		Object d = TestUtils.getClasse("Commercial").newInstance();
 		Assertions.assertThat(TestUtils.callMethod(d, "getPrimeAnnuelle")).isEqualTo(500.0);
 		
 		TestUtils.invokeSetter(d, "caAnnuel", 0d);

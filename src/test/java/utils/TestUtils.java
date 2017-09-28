@@ -171,8 +171,7 @@ public class TestUtils {
 		}).collect(Collectors.toList()).toArray(new Class[0]));
 	}
 
-	@Deprecated
-	public static void checkFinalMethod(Class classe, String nomMethode, Class returnType, Class... parameters) {
+	private static void checkFinalMethod(Class classe, String nomMethode, Class returnType, Class... parameters) {
 		Method method = null;
 		try {
 			method = classe.getDeclaredMethod(nomMethode, parameters);
@@ -184,7 +183,18 @@ public class TestUtils {
 
 	}
 
-	public static void checkPrivateMethod(Class classe, String nomMethode, Class returnType, Class... parameters) {
+	public static void checkPrivateMethod(String classe, String nomMethode, String returnType, String... parameters) throws Exception {
+		//noinspection deprecation
+		checkPrivateMethod(getClasse(classe), nomMethode, getClasse(returnType), Stream.of(parameters).map(t -> {
+			try {
+				return getClasse(t);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}return null;
+		}).collect(Collectors.toList()).toArray(new Class[0]));
+	}
+
+	private static void checkPrivateMethod(Class classe, String nomMethode, Class returnType, Class... parameters) {
 		Method method = null;
 		try {
 			method = classe.getDeclaredMethod(nomMethode, parameters);
@@ -208,8 +218,7 @@ public class TestUtils {
 		}).collect(Collectors.toList()).toArray(new Class[0]));
 	}
 
-	@Deprecated
-	public static void checkAbstractMethod(Class classe, String nomMethode, Class returnType, Class... parameters) {
+	private static void checkAbstractMethod(Class classe, String nomMethode, Class returnType, Class... parameters) {
 		Method method = null;
 		try {
 			method = classe.getDeclaredMethod(nomMethode, parameters);
@@ -233,8 +242,7 @@ public class TestUtils {
 		}).collect(Collectors.toList()).toArray(new Class[0]));
 	}
 
-	@Deprecated
-	public static void checkConstructor(Class classe, Class... parameters) {
+	private static void checkConstructor(Class classe, Class... parameters) {
 		Constructor constructor = null;
 		try {
 			constructor = classe.getConstructor(parameters);
@@ -259,7 +267,12 @@ public class TestUtils {
 		Assertions.assertThat(Modifier.isPublic(field.getModifiers())).as("Le champ " + nomChamp + " n'est pas accessible").isTrue();
 	}
 
-    public static Object getStaticFinalField(Class classe, String nomChamp) throws IllegalAccessException {
+	public static Object getStaticFinalField(String classe, String nomChamp) throws Exception {
+		//noinspection deprecation
+		return getStaticFinalField(getClasse(classe), nomChamp);
+	}
+
+    private static Object getStaticFinalField(Class classe, String nomChamp) throws IllegalAccessException {
         try {
             Field field = classe.getField(nomChamp);
             return field.get(null);
@@ -269,13 +282,12 @@ public class TestUtils {
         return null;
     }
 
-		public static void checkPrivateField(String classe, String nomChamp, String type) throws Exception {
-			//noinspection deprecation
-			checkPrivateField(getClasse(classe), nomChamp, Class.forName(type));
-		}
+	public static void checkPrivateField(String classe, String nomChamp, String type) throws Exception {
+		//noinspection deprecation
+		checkPrivateField(getClasse(classe), nomChamp, Class.forName(type));
+	}
 
-		@Deprecated
-		public static void checkPrivateField(Class classe, String nomChamp, Class type) throws IllegalAccessException {
+	private static void checkPrivateField(Class classe, String nomChamp, Class type) throws IllegalAccessException {
 		Field field = null;
 		try {
 			field = classe.getDeclaredField(nomChamp);
@@ -291,15 +303,20 @@ public class TestUtils {
 		checkAbstractClass(getClasse(classe));
 	}
 
-	@Deprecated
-	public static void checkAbstractClass(Class classe) throws IllegalAccessException {
+	private static void checkAbstractClass(Class classe) throws IllegalAccessException {
 		Assertions.assertThat(Modifier.isAbstract(classe.getModifiers())).as("La classe " + classe.getName() + " n'est pas abstraite").isTrue();
 		Assertions.assertThat(Modifier.isPublic(classe.getModifiers())).as("La classe " + classe.getName() + " n'est pas publique").isTrue();
 	}
 
-	public static void checkNotAbstractClass(Class classe) throws IllegalAccessException {
+	public static void checkNotAbstractClass(String classe) throws Exception{
+		//noinspection deprecation
+		checkNotAbstractClass(getClasse(classe));
+	}
+
+	private static void checkNotAbstractClass(Class classe) throws IllegalAccessException {
 		Assertions.assertThat(Modifier.isAbstract(classe.getModifiers())).as("La classe " + classe.getName() + " est abstraite").isFalse();
 	}
+
 
 
 	public static void invokeSetter(Object obj, String variableName, Object variableValue) throws Exception{
