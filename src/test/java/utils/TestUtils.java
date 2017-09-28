@@ -2,15 +2,22 @@ package utils;
 
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
+import java.lang.reflect.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.assertj.core.api.Assertions;
 
 public class TestUtils {
+	public static final String OBJECT = "java.lang.Object";
+	public static final String VOID = "java.lang.Void";
+	public static final String HASHSET = "java.util.HashSet";
+	public static final String PACKAGE = "com.ipiecoles.java.java220.";
+	public static final String STRING = "java.lang.String";
+	public static final String DOUBLE = "java.lang.Double";
+	public static final String LOCAL_DATE = "org.joda.time.LocalDate";
+	public static final String INTEGER = "java.lang.Integer";
+
 	public static Object callMethod(Class classe, String methodName) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
 		Method method = classe.getMethod(methodName);
 		method.setAccessible(true);
@@ -64,6 +71,19 @@ public class TestUtils {
 		for(int i = 0; i < parameters.length; i++){
 			classes[i] = params[i].getClass();
 		}
+		Method method = o.getClass().getMethod(methodName, classes);
+		method.setAccessible(true);
+		Object resultat = method.invoke(o, parameters);
+		return resultat;
+	}
+
+	public static Object callDeclaredMethod(Object o, String methodName, Object... parameters) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+		Object[] params = parameters.clone();
+		Class[] classes = new Class[parameters.length];
+
+		for(int i = 0; i < parameters.length; i++){
+			classes[i] = params[i].getClass();
+		}
 		Method method = o.getClass().getDeclaredMethod(methodName, classes);
 		method.setAccessible(true);
 		Object resultat = method.invoke(o, parameters);
@@ -96,7 +116,12 @@ public class TestUtils {
         return resultat;
     }
 
-	public static void checkStaticMethod(Class classe, String nomMethode, Class returnType, int nbParameters) {
+	public static void checkStaticMethod(String classe, String nomMethode, String returnType, int nbParameters) throws Exception {
+		checkStaticMethod(getClasse(classe), nomMethode, getClasse(returnType), nbParameters);
+	}
+
+
+	private static void checkStaticMethod(Class classe, String nomMethode, Class returnType, int nbParameters) {
 		Method method = null;
 		try {
 			method = classe.getDeclaredMethod(nomMethode);
@@ -110,6 +135,24 @@ public class TestUtils {
 
 	}
 
+	public static void checkMethod(String classe, String nomMethode, String returnType, String... parameters) throws Exception{
+		checkMethod(getClasse(classe), nomMethode, getClasse(returnType), Stream.of(parameters).map(t -> {
+			try {
+				return getClasse(t);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}return null;
+		}).collect(Collectors.toList()).toArray(new Class[0]));
+	}
+
+	public static Class<?> getClasse(String classe) throws ClassNotFoundException {
+		if("void".equals(classe)){
+			return void.class;
+		}
+		return Class.forName(classe.contains(".") ? classe : PACKAGE + classe);
+	}
+
+	@Deprecated
 	public static void checkMethod(Class classe, String nomMethode, Class returnType, Class... parameters) {
 		Method method = null;
 		try {
@@ -122,7 +165,41 @@ public class TestUtils {
 
 	}
 
-	public static void checkPrivateMethod(Class classe, String nomMethode, Class returnType, Class... parameters) {
+	public static void checkFinalMethod(String classe, String nomMethode, String returnType, String... parameters) throws Exception {
+		//noinspection deprecation
+		checkFinalMethod(getClasse(classe), nomMethode, getClasse(returnType), Stream.of(parameters).map(t -> {
+			try {
+				return getClasse(t);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}return null;
+		}).collect(Collectors.toList()).toArray(new Class[0]));
+	}
+
+	private static void checkFinalMethod(Class classe, String nomMethode, Class returnType, Class... parameters) {
+		Method method = null;
+		try {
+			method = classe.getDeclaredMethod(nomMethode, parameters);
+			Assertions.assertThat(method.getReturnType()).as("La méthode " + nomMethode + " doit retourner le bon type").isEqualTo(returnType);
+		} catch (NoSuchMethodException exception) {
+			Assertions.fail("Aucune méthode nommée " + nomMethode + " n'a été trouvée");
+		}
+		Assertions.assertThat(Modifier.isFinal(method.getModifiers())).as("La méthode " + nomMethode + " n'est pas final").isTrue();
+
+	}
+
+	public static void checkPrivateMethod(String classe, String nomMethode, String returnType, String... parameters) throws Exception {
+		//noinspection deprecation
+		checkPrivateMethod(getClasse(classe), nomMethode, getClasse(returnType), Stream.of(parameters).map(t -> {
+			try {
+				return getClasse(t);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}return null;
+		}).collect(Collectors.toList()).toArray(new Class[0]));
+	}
+
+	private static void checkPrivateMethod(Class classe, String nomMethode, Class returnType, Class... parameters) {
 		Method method = null;
 		try {
 			method = classe.getDeclaredMethod(nomMethode, parameters);
@@ -135,7 +212,18 @@ public class TestUtils {
 
 	}
 
-	public static void checkAbstractMethod(Class classe, String nomMethode, Class returnType, Class... parameters) {
+	public static void checkAbstractMethod(String classe, String nomMethode, String returnType, String... parameters) throws Exception {
+		//noinspection deprecation
+		checkAbstractMethod(getClasse(classe), nomMethode, getClasse(returnType), Stream.of(parameters).map(t -> {
+			try {
+				return getClasse(t);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}return null;
+		}).collect(Collectors.toList()).toArray(new Class[0]));
+	}
+
+	private static void checkAbstractMethod(Class classe, String nomMethode, Class returnType, Class... parameters) {
 		Method method = null;
 		try {
 			method = classe.getDeclaredMethod(nomMethode, parameters);
@@ -148,7 +236,18 @@ public class TestUtils {
 
 	}
 
-	public static void checkConstructor(Class classe, Class... parameters) {
+	public static void checkConstructor(String classe, String... parameters) throws Exception{
+		//noinspection deprecation
+		checkConstructor(getClasse(classe), Stream.of(parameters).map(t -> {
+			try {
+				return getClasse(t);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}return null;
+		}).collect(Collectors.toList()).toArray(new Class[0]));
+	}
+
+	private static void checkConstructor(Class classe, Class... parameters) {
 		Constructor constructor = null;
 		try {
 			constructor = classe.getConstructor(parameters);
@@ -159,7 +258,11 @@ public class TestUtils {
 
 	}
 
-	public static void checkStaticFinalField(Class classe, String nomChamp, Class type, Object valeur) throws IllegalAccessException {
+	public static void checkStaticFinalField(String classe, String nomChamp, String type, Object valeur) throws Exception {
+		checkStaticFinalField(getClasse(classe), nomChamp, getClasse(type), valeur);
+	}
+
+	private static void checkStaticFinalField(Class classe, String nomChamp, Class type, Object valeur) throws IllegalAccessException {
 		Field field = null;
 		try {
 			field = classe.getField(nomChamp);
@@ -173,7 +276,12 @@ public class TestUtils {
 		Assertions.assertThat(Modifier.isPublic(field.getModifiers())).as("Le champ " + nomChamp + " n'est pas accessible").isTrue();
 	}
 
-    public static Object getStaticFinalField(Class classe, String nomChamp) throws IllegalAccessException {
+	public static Object getStaticFinalField(String classe, String nomChamp) throws Exception {
+		//noinspection deprecation
+		return getStaticFinalField(getClasse(classe), nomChamp);
+	}
+
+    private static Object getStaticFinalField(Class classe, String nomChamp) throws IllegalAccessException {
         try {
             Field field = classe.getField(nomChamp);
             return field.get(null);
@@ -183,7 +291,12 @@ public class TestUtils {
         return null;
     }
 
-	public static void checkPrivateField(Class classe, String nomChamp, Class type) throws IllegalAccessException {
+	public static void checkPrivateField(String classe, String nomChamp, String type) throws Exception {
+		//noinspection deprecation
+		checkPrivateField(getClasse(classe), nomChamp, Class.forName(type));
+	}
+
+	private static void checkPrivateField(Class classe, String nomChamp, Class type) throws IllegalAccessException {
 		Field field = null;
 		try {
 			field = classe.getDeclaredField(nomChamp);
@@ -195,14 +308,24 @@ public class TestUtils {
 		Assertions.assertThat(Modifier.isFinal(field.getModifiers())).as("Le champ " + nomChamp + " ne doit pas être final").isFalse();
 	}
 
-	public static void checkAbstractClass(Class classe) throws IllegalAccessException {
+	public static void checkAbstractClass(String classe) throws Exception {
+		checkAbstractClass(getClasse(classe));
+	}
+
+	private static void checkAbstractClass(Class classe) throws IllegalAccessException {
 		Assertions.assertThat(Modifier.isAbstract(classe.getModifiers())).as("La classe " + classe.getName() + " n'est pas abstraite").isTrue();
 		Assertions.assertThat(Modifier.isPublic(classe.getModifiers())).as("La classe " + classe.getName() + " n'est pas publique").isTrue();
 	}
 
-	public static void checkNotAbstractClass(Class classe) throws IllegalAccessException {
+	public static void checkNotAbstractClass(String classe) throws Exception{
+		//noinspection deprecation
+		checkNotAbstractClass(getClasse(classe));
+	}
+
+	private static void checkNotAbstractClass(Class classe) throws IllegalAccessException {
 		Assertions.assertThat(Modifier.isAbstract(classe.getModifiers())).as("La classe " + classe.getName() + " est abstraite").isFalse();
 	}
+
 
 
 	public static void invokeSetter(Object obj, String variableName, Object variableValue) throws Exception{
@@ -237,4 +360,9 @@ public class TestUtils {
    }
 
 
+	public static void checkEnum(String enumName) throws ClassNotFoundException {
+		Class<?> c = getClasse(enumName);
+
+		Assertions.assertThat(c.isEnum()).isTrue();
+	}
 }
