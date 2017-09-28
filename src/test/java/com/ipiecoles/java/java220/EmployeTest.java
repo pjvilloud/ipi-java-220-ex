@@ -31,38 +31,38 @@ public class EmployeTest {
 	}
 	
 	@Test
-	public void exo101testClasseAbstraite() throws IllegalAccessException {
+	public void exo101testClasseAbstraite() throws Exception {
 		//Rendre la classe Employe abstraite
-		TestUtils.checkAbstractClass(Employe.class);
+		TestUtils.checkAbstractClass("Employe");
 	}
 	
 	@Test
-	public void exo102TestMethodAbstract() {
+	public void exo102TestMethodAbstract() throws Exception{
 		//Déclarer dans la classe Employe une méthode abstraite getPrimeAnnuelle retournant un Double
-		TestUtils.checkAbstractMethod(Employe.class, "getPrimeAnnuelle", Double.class);
+		TestUtils.checkAbstractMethod("Employe", "getPrimeAnnuelle", TestUtils.DOUBLE);
 	}
 	
 	@Test
 	public void exo103TestPrivateFields() throws Exception {
 		//Ajouter dans la classe Employe les champs suivants avec leurs getters/setters
 		//										   Nom champ	Type
-		TestUtils.checkPrivateField(Employe.class, "nom", 		String.class);
-		TestUtils.checkPrivateField(Employe.class, "prenom", 	String.class);
-		TestUtils.checkPrivateField(Employe.class, "matricule", String.class);
-		TestUtils.checkPrivateField(Employe.class, "dateEmbauche", LocalDate.class);
-		TestUtils.checkPrivateField(Employe.class, "salaire", 	Double.class);
+		TestUtils.checkPrivateField("Employe", "nom", 		TestUtils.STRING);
+		TestUtils.checkPrivateField("Employe", "prenom", 	TestUtils.STRING);
+		TestUtils.checkPrivateField("Employe", "matricule", TestUtils.STRING);
+		TestUtils.checkPrivateField("Employe", "dateEmbauche", TestUtils.LOCAL_DATE);
+		TestUtils.checkPrivateField("Employe", "salaire", 	TestUtils.DOUBLE);
 		
-		TestUtils.checkMethod(Employe.class, "getNom", String.class);
-		TestUtils.checkMethod(Employe.class, "getPrenom", String.class);
-		TestUtils.checkMethod(Employe.class, "getMatricule", String.class);
-		TestUtils.checkMethod(Employe.class, "getDateEmbauche", LocalDate.class);
-		TestUtils.checkMethod(Employe.class, "getSalaire", Double.class);
+		TestUtils.checkMethod("Employe", "getNom", TestUtils.STRING);
+		TestUtils.checkMethod("Employe", "getPrenom", TestUtils.STRING);
+		TestUtils.checkMethod("Employe", "getMatricule", TestUtils.STRING);
+		TestUtils.checkMethod("Employe", "getDateEmbauche", TestUtils.LOCAL_DATE);
+		TestUtils.checkMethod("Employe", "getSalaire", TestUtils.DOUBLE);
 		
-		TestUtils.checkMethod(Employe.class, "setNom", void.class, String.class);
-		TestUtils.checkMethod(Employe.class, "setPrenom", void.class, String.class);
-		TestUtils.checkMethod(Employe.class, "setMatricule", void.class, String.class);
-		TestUtils.checkMethod(Employe.class, "setDateEmbauche", void.class, LocalDate.class);
-		TestUtils.checkMethod(Employe.class, "setSalaire", void.class, Double.class);
+		TestUtils.checkMethod("Employe", "setNom", "void", TestUtils.STRING);
+		TestUtils.checkMethod("Employe", "setPrenom", "void", TestUtils.STRING);
+		TestUtils.checkMethod("Employe", "setMatricule", "void", TestUtils.STRING);
+		TestUtils.checkMethod("Employe", "setDateEmbauche", "void", TestUtils.LOCAL_DATE);
+		TestUtils.checkMethod("Employe", "setSalaire", "void", TestUtils.DOUBLE);
 		
 		Derived d = new Derived();
 		LocalDate dateTime = new LocalDate();
@@ -80,12 +80,12 @@ public class EmployeTest {
 	}
 	
 	@Test
-	public void exo104TestConstructeur() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+	public void exo104TestConstructeur() throws Exception {
 		//Définir un constructeur par défaut dans la classe Employé, puis un constructeur avec l'ensemble des arguments
 		//précédemment créés, dans le même ordre
 		//
-		TestUtils.checkConstructor(Employe.class);
-		TestUtils.checkConstructor(Employe.class, String.class, String.class, String.class, LocalDate.class, Double.class);
+		TestUtils.checkConstructor("Employe");
+		TestUtils.checkConstructor("Employe", TestUtils.STRING, TestUtils.STRING, TestUtils.STRING, TestUtils.LOCAL_DATE, TestUtils.DOUBLE);
 		
 		LocalDate dateTime = new LocalDate();
 		Derived d = null;
@@ -104,7 +104,7 @@ public class EmployeTest {
 		//Faire en sorte qu'elle ne puisse être redéfinie dans d'éventuelles sous-classes.
 		//Un employé enbauché en 2017 a une ancienneté de 0
 		
-		TestUtils.checkFinalMethod(Employe.class, "getNombreAnneeAnciennete", Integer.class);
+		TestUtils.checkFinalMethod("Employe", "getNombreAnneeAnciennete", TestUtils.INTEGER);
 		
 		LocalDate dateTime = new LocalDate();
 		Derived d = null;
@@ -142,10 +142,10 @@ public class EmployeTest {
 	}
 	
 	@Test
-	public void exo107TestGetNbConges() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+	public void exo107TestGetNbConges() throws Exception {
 		//Développer une méthode getNbConges retournant la constante de classe NB_CONGES_BASE de la classe Entreprise
 		
-		TestUtils.checkMethod(Employe.class, "getNbConges", Integer.class);
+		TestUtils.checkMethod("Employe", "getNbConges", TestUtils.INTEGER);
 		
 		Assertions.assertThat(TestUtils.callMethod(new Derived(), "getNbConges")).isEqualTo(25);
 		

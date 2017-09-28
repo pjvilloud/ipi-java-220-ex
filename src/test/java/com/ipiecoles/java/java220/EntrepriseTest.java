@@ -1,7 +1,5 @@
 package com.ipiecoles.java.java220;
 
-import java.lang.reflect.InvocationTargetException;
-
 import org.assertj.core.api.Assertions;
 import org.joda.time.DateTimeUtils;
 import org.joda.time.LocalDate;
@@ -9,8 +7,9 @@ import org.junit.AfterClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
-
 import utils.TestUtils;
+
+import java.lang.reflect.InvocationTargetException;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING) 
 public class EntrepriseTest {
@@ -53,6 +52,24 @@ public class EntrepriseTest {
 		//Ajouter une méthode ajouterMembre qui peut prendre autant de type générique que l'on veut
 		//Générer une méthode toString
 
+		TestUtils.checkPrivateField("Unite", "responsable", TestUtils.OBJECT);
+		TestUtils.checkPrivateField("Unite", "membres", TestUtils.HASHSET);
+
+		TestUtils.checkMethod("Unite", "getResponsable", TestUtils.OBJECT);
+		TestUtils.checkMethod("Unite", "setResponsable", "void", TestUtils.OBJECT);
+
+		TestUtils.checkMethod("Unite", "getMembres", TestUtils.HASHSET);
+		TestUtils.checkMethod("Unite", "setMembres", "void", TestUtils.HASHSET);
+
+		TestUtils.checkConstructor("Unite");
+		TestUtils.checkConstructor("Unite", TestUtils.OBJECT);
+
+
+		//noinspection deprecation
+		TestUtils.checkMethod(TestUtils.getClasse("Unite"), "ajouterMembre", void.class, Object[].class);
+		TestUtils.checkMethod("Unite", "toString", TestUtils.STRING);
+
+
 		//Décommenter tout le code ci-dessous une fois les développements effectués et analyser les 4 dernières lignes
 		Technicien t1 = new Technicien("Roussel", "Clémence", "000T01", new LocalDate(), Entreprise.SALAIRE_BASE, 1);
 		Technicien t2 = new Technicien("Chevalier", "Lucie", "000T02", new LocalDate(), Entreprise.SALAIRE_BASE, 2);
@@ -86,7 +103,7 @@ public class EntrepriseTest {
 
 		Unite<Employe> ensembleEmployes = new Unite<>(t1);
 		ensembleEmployes.ajouterMembre(t2, t3, t4, t5, m1, m2, c1, c2, c3);
-
+		ensembleEmployes.getMembres().stream().mapToDouble(Employe::getPrimeAnnuelle).forEach(System.out::println);
 		System.out.println(ensembleEmployes);
 	}
 

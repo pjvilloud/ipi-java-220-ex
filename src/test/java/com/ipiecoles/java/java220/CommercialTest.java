@@ -29,9 +29,9 @@ public class CommercialTest {
 		//Modifier la classe Commercial pour ajouter un attribut caAnnuel de type Double
 		//avec son getter et son setter
 		
-		TestUtils.checkPrivateField(Commercial.class, "caAnnuel", Double.class);
-		TestUtils.checkMethod(Commercial.class, "getCaAnnuel", Double.class);
-		TestUtils.checkMethod(Commercial.class, "setCaAnnuel", void.class, Double.class);
+		TestUtils.checkPrivateField("Commercial", "caAnnuel", TestUtils.DOUBLE);
+		TestUtils.checkMethod("Commercial", "getCaAnnuel", TestUtils.DOUBLE);
+		TestUtils.checkMethod("Commercial", "setCaAnnuel", "void", TestUtils.DOUBLE);
 		Commercial d = Commercial.class.newInstance();
 		TestUtils.invokeSetter(d, "caAnnuel", 500.2);
 		Assertions.assertThat(TestUtils.invokeGetter(d, "caAnnuel")).isEqualTo(500.2);
@@ -72,9 +72,9 @@ public class CommercialTest {
 		//hérités de la classe Employe en faisant appel au constructeur d'Employe
 		//et qui initialise également l'attribut caAnnuel
 		
-		TestUtils.checkConstructor(Commercial.class, String.class, String.class, String.class, LocalDate.class, Double.class, Double.class);
+		TestUtils.checkConstructor("Commercial", TestUtils.STRING, TestUtils.STRING, TestUtils.STRING, TestUtils.LOCAL_DATE, TestUtils.DOUBLE, TestUtils.DOUBLE);
 		LocalDate dateTime = LocalDate.now();
-		Commercial d = Commercial.class.getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Double.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 50000.0);
+		Object d = TestUtils.getClasse("Commercial").getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Double.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 50000.0);
 		Assertions.assertThat(TestUtils.invokeGetter(d, "nom")).isEqualTo("nom");
 		Assertions.assertThat(TestUtils.invokeGetter(d, "prenom")).isEqualTo("prenom");
 		Assertions.assertThat(TestUtils.invokeGetter(d, "matricule")).isEqualTo("matricule");
@@ -84,31 +84,31 @@ public class CommercialTest {
 	}
 
 	@Test
-	public void exo205TestEquals() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+	public void exo205TestEquals() throws Exception {
 		//Surcharger la méthode equals pour permettre de tester l'égalité entre deux instances de la classe Commercial.
 		//Appeler la méthode equals de la classe Employe
 
 		LocalDate dateTime = LocalDate.now();
-		Commercial c = Commercial.class.getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Double.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 90000.0);
-		Commercial c2 = Commercial.class.getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Double.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 50000.0);
+		Object c = TestUtils.getClasse("Commercial").getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Double.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 90000.0);
+		Object c2 = TestUtils.getClasse("Commercial").getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Double.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 50000.0);
 		Assertions.assertThat(c).isNotEqualTo(c2);
 
-		c = Commercial.class.getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Double.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 50000.0);
-		c2 = Commercial.class.getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Double.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 50000.0);
+		c = TestUtils.getClasse("Commercial").getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Double.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 50000.0);
+		c2 = TestUtils.getClasse("Commercial").getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Double.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 50000.0);
 		Assertions.assertThat(c).isEqualTo(c2);
 	}
 
 	@Test
-	public void exo206TestPerformanceEgale() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+	public void exo206TestPerformanceEgale() throws Exception {
 		//Ajouter un attribut Integer performance
 		//Ajouter une méthode performanceEgale prenant un Integer en paramètre, dans Commercial qui renvoie true si la performance du commercial
 		//est égale à celle passée en paramètre, false sinon
 		LocalDate dateTime = LocalDate.now();
-		Commercial c = Commercial.class.getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 0.0, 50);
+		Object c = TestUtils.getClasse("Commercial").getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 0.0, 50);
 
 		Assertions.assertThat(TestUtils.callMethod(c, "performanceEgale", 50)).isEqualTo(true);
 
-		c = Commercial.class.getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 9000000.0, new Integer (150));
+		c = TestUtils.getClasse("Commercial").getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 9000000.0, new Integer (150));
 
 		Assertions.assertThat(TestUtils.callMethod(c, "performanceEgale", new Integer(150))).isEqualTo(true);
 
@@ -123,21 +123,21 @@ public class CommercialTest {
 		//Si performance = 150 : BIEN
 		//Si performance = 200 : TRES_BIEN
 
-		TestUtils.checkEnum("com.ipiecoles.java.java220.Note");
+		TestUtils.checkEnum("Note");
 
 		LocalDate dateTime = LocalDate.now();
-		Commercial c = Commercial.class.getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 0.0, 50);
+		Object c = TestUtils.getClasse("Commercial").getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 0.0, 50);
 
-		Assertions.assertThat(TestUtils.callMethod(c, "equivalenceNote")).isEqualTo(Class.forName("com.ipiecoles.java.java220.Note").getEnumConstants()[0]);
+		Assertions.assertThat(TestUtils.callMethod(c, "equivalenceNote")).isEqualTo(TestUtils.getClasse("Note").getEnumConstants()[0]);
 
 		TestUtils.invokeSetter(c, "performance", 100);
-		Assertions.assertThat(TestUtils.callMethod(c, "equivalenceNote")).isEqualTo(Class.forName("com.ipiecoles.java.java220.Note").getEnumConstants()[1]);
+		Assertions.assertThat(TestUtils.callMethod(c, "equivalenceNote")).isEqualTo(TestUtils.getClasse("Note").getEnumConstants()[1]);
 
 		TestUtils.invokeSetter(c, "performance", 150);
-		Assertions.assertThat(TestUtils.callMethod(c, "equivalenceNote")).isEqualTo(Class.forName("com.ipiecoles.java.java220.Note").getEnumConstants()[2]);
+		Assertions.assertThat(TestUtils.callMethod(c, "equivalenceNote")).isEqualTo(TestUtils.getClasse("Note").getEnumConstants()[2]);
 
 		TestUtils.invokeSetter(c, "performance", 200);
-		Assertions.assertThat(TestUtils.callMethod(c, "equivalenceNote")).isEqualTo(Class.forName("com.ipiecoles.java.java220.Note").getEnumConstants()[3]);
+		Assertions.assertThat(TestUtils.callMethod(c, "equivalenceNote")).isEqualTo(TestUtils.getClasse("Note").getEnumConstants()[3]);
 
 
 	}
