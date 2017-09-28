@@ -18,6 +18,12 @@ public class TestUtils {
 	public static final String LOCAL_DATE = "org.joda.time.LocalDate";
 	public static final String INTEGER = "java.lang.Integer";
 
+	public static Object callMethod(String classe, String methodName) throws Exception {
+		Method method = getClasse(classe).getMethod(methodName);
+		method.setAccessible(true);
+		return method.invoke(null);
+	}
+
 	public static Object callMethod(Class classe, String methodName) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
 		Method method = classe.getMethod(methodName);
 		method.setAccessible(true);
