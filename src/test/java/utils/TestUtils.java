@@ -18,6 +18,12 @@ public class TestUtils {
 	public static final String LOCAL_DATE = "org.joda.time.LocalDate";
 	public static final String INTEGER = "java.lang.Integer";
 
+	public static Object callMethod(String classe, String methodName) throws Exception {
+		Method method = getClasse(classe).getMethod(methodName);
+		method.setAccessible(true);
+		return method.invoke(null);
+	}
+
 	public static Object callMethod(Class classe, String methodName) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
 		Method method = classe.getMethod(methodName);
 		method.setAccessible(true);
@@ -103,20 +109,25 @@ public class TestUtils {
 		return resultat;
 	}
 
-    public static Object callDeclaredMethodPrimitiveParameters(Object o, String methodName, Object... parameters) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        Object[] params = parameters.clone();
-        Class[] classes = new Class[parameters.length];
+	public static Object callDeclaredMethodPrimitiveParameters(Object o, String methodName, Object... parameters) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+		Object[] params = parameters.clone();
+		Class[] classes = new Class[parameters.length];
 
-        for(int i = 0; i < parameters.length; i++){
-            classes[i] = toPrimitiveType(params[i].getClass());
-        }
-        Method method = o.getClass().getDeclaredMethod(methodName, classes);
-        method.setAccessible(true);
-        Object resultat = method.invoke(o, parameters);
-        return resultat;
-    }
+		for(int i = 0; i < parameters.length; i++){
+			classes[i] = toPrimitiveType(params[i].getClass());
+		}
+		Method method = o.getClass().getDeclaredMethod(methodName, classes);
+		method.setAccessible(true);
+		Object resultat = method.invoke(o, parameters);
+		return resultat;
+	}
 
-	public static void checkStaticMethod(Class classe, String nomMethode, Class returnType, int nbParameters) {
+	public static void checkStaticMethod(String classe, String nomMethode, String returnType, int nbParameters) throws Exception {
+		checkStaticMethod(getClasse(classe), nomMethode, getClasse(returnType), nbParameters);
+	}
+
+
+	private static void checkStaticMethod(Class classe, String nomMethode, Class returnType, int nbParameters) {
 		Method method = null;
 		try {
 			method = classe.getDeclaredMethod(nomMethode);
@@ -253,7 +264,11 @@ public class TestUtils {
 
 	}
 
-	public static void checkStaticFinalField(Class classe, String nomChamp, Class type, Object valeur) throws IllegalAccessException {
+	public static void checkStaticFinalField(String classe, String nomChamp, String type, Object valeur) throws Exception {
+		checkStaticFinalField(getClasse(classe), nomChamp, getClasse(type), valeur);
+	}
+
+	private static void checkStaticFinalField(Class classe, String nomChamp, Class type, Object valeur) throws IllegalAccessException {
 		Field field = null;
 		try {
 			field = classe.getField(nomChamp);
@@ -272,15 +287,15 @@ public class TestUtils {
 		return getStaticFinalField(getClasse(classe), nomChamp);
 	}
 
-    private static Object getStaticFinalField(Class classe, String nomChamp) throws IllegalAccessException {
-        try {
-            Field field = classe.getField(nomChamp);
-            return field.get(null);
-        } catch (NoSuchFieldException exception) {
-            Assertions.fail("Aucun champ nommé " + nomChamp + " n'a été trouvé");
-        }
-        return null;
-    }
+	private static Object getStaticFinalField(Class classe, String nomChamp) throws IllegalAccessException {
+		try {
+			Field field = classe.getField(nomChamp);
+			return field.get(null);
+		} catch (NoSuchFieldException exception) {
+			Assertions.fail("Aucun champ nommé " + nomChamp + " n'a été trouvé");
+		}
+		return null;
+	}
 
 	public static void checkPrivateField(String classe, String nomChamp, String type) throws Exception {
 		//noinspection deprecation
@@ -321,34 +336,34 @@ public class TestUtils {
 
 	public static void invokeSetter(Object obj, String variableName, Object variableValue) throws Exception{
       /* variableValue is Object because value can be an Object, Integer, String, etc... */
-        /**
-         * Get object of PropertyDescriptor using variable name and class
-         * Note: To use PropertyDescriptor on any field/variable, the field must have both `Setter` and `Getter` method.
-         */
-        PropertyDescriptor objPropertyDescriptor = new PropertyDescriptor(variableName, obj.getClass());
+		/**
+		 * Get object of PropertyDescriptor using variable name and class
+		 * Note: To use PropertyDescriptor on any field/variable, the field must have both `Setter` and `Getter` method.
+		 */
+		PropertyDescriptor objPropertyDescriptor = new PropertyDescriptor(variableName, obj.getClass());
          /* Set field/variable value using getWriteMethod() */
-        objPropertyDescriptor.getWriteMethod().invoke(obj, variableValue);
-    }
+		objPropertyDescriptor.getWriteMethod().invoke(obj, variableValue);
+	}
 
-    public static Object invokeGetter(Object obj, String variableName){
-        try {
-            /**
-             * Get object of PropertyDescriptor using variable name and class
-             * Note: To use PropertyDescriptor on any field/variable, the field must have both `Setter` and `Getter` method.
-             */
-            PropertyDescriptor objPropertyDescriptor = new PropertyDescriptor(variableName, obj.getClass());
-            /**
-             * Get field/variable value using getReadMethod()
-             * variableValue is Object because value can be an Object, Integer, String, etc...
-             */
-            Object variableValue = objPropertyDescriptor.getReadMethod().invoke(obj);
+	public static Object invokeGetter(Object obj, String variableName){
+		try {
+			/**
+			 * Get object of PropertyDescriptor using variable name and class
+			 * Note: To use PropertyDescriptor on any field/variable, the field must have both `Setter` and `Getter` method.
+			 */
+			PropertyDescriptor objPropertyDescriptor = new PropertyDescriptor(variableName, obj.getClass());
+			/**
+			 * Get field/variable value using getReadMethod()
+			 * variableValue is Object because value can be an Object, Integer, String, etc...
+			 */
+			Object variableValue = objPropertyDescriptor.getReadMethod().invoke(obj);
         /* Print value of variable */
-         return variableValue;
-      } catch (Exception e) {
-    	  Assertions.fail("Impossible d'appeler le getter");
-      }
-      return null;
-   }
+			return variableValue;
+		} catch (Exception e) {
+			Assertions.fail("Impossible d'appeler le getter");
+		}
+		return null;
+	}
 
 
 	public static void checkEnum(String enumName) throws ClassNotFoundException {
