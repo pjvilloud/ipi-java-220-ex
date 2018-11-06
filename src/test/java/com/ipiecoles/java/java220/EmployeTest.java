@@ -29,21 +29,9 @@ public class EmployeTest {
 		}
 	   
 	}
-	
+
 	@Test
-	public void exo101testClasseAbstraite() throws Exception {
-		//Rendre la classe Employe abstraite
-		TestUtils.checkAbstractClass("Employe");
-	}
-	
-	@Test
-	public void exo102TestMethodAbstract() throws Exception{
-		//Déclarer dans la classe Employe une méthode abstraite getPrimeAnnuelle retournant un Double
-		TestUtils.checkAbstractMethod("Employe", "getPrimeAnnuelle", TestUtils.DOUBLE);
-	}
-	
-	@Test
-	public void exo103TestPrivateFields() throws Exception {
+	public void exo101TestPrivateFields() throws Exception {
 		//Ajouter dans la classe Employe les champs suivants avec leurs getters/setters
 		//										   Nom champ	Type
 		TestUtils.checkPrivateField("Employe", "nom", 		TestUtils.STRING);
@@ -80,7 +68,7 @@ public class EmployeTest {
 	}
 	
 	@Test
-	public void exo104TestConstructeur() throws Exception {
+	public void exo102TestConstructeur() throws Exception {
 		//Définir un constructeur par défaut dans la classe Employé, puis un constructeur avec l'ensemble des arguments
 		//précédemment créés, dans le même ordre
 		//
@@ -99,7 +87,7 @@ public class EmployeTest {
 	}
 	
 	@Test
-	public void exo105TestGetNombreAnneeAnciennete() throws Exception {
+	public void exo103TestGetNombreAnneeAnciennete() throws Exception {
 		//Déclarer et développer la méthode getNombreAnneeAnciennete calculant le nombre d'année d'ancienneté d'un employé
 		//Faire en sorte qu'elle ne puisse être redéfinie dans d'éventuelles sous-classes.
 		//Un employé enbauché en 2017 a une ancienneté de 0
@@ -118,7 +106,7 @@ public class EmployeTest {
 	}
 	
 	@Test
-	public void exo106TestGetNombreAnneeAncienneteNegatif() throws Exception {
+	public void exo104TestGetNombreAnneeAncienneteNegatif() throws Exception {
 		//Modifier le setter de dateEmbauche pour lever une Exception avec le message "La date d'embauche ne peut être postérieure à la date courante"
 		//lorsque la date d'embauche est postérieure
 		//à la date courante
@@ -142,7 +130,7 @@ public class EmployeTest {
 	}
 	
 	@Test
-	public void exo107TestGetNbConges() throws Exception {
+	public void exo105TestGetNbConges() throws Exception {
 		//Développer une méthode getNbConges retournant la constante de classe NB_CONGES_BASE de la classe Entreprise
 		
 		TestUtils.checkMethod("Employe", "getNbConges", TestUtils.INTEGER);
@@ -152,7 +140,7 @@ public class EmployeTest {
 	}
 
 	@Test
-	public void exo108TestToString() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+	public void exo106TestToString() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
 		//Redéfinir la méthode toString (héritée d'Object) pour afficher un employé de la manière suivante :
 		//"Employe{nom='nom', prenom='prenom', matricule='12345', dateEmbauche=1970-01-01, salaire=500.0}"
 		LocalDate dateTime = new LocalDate(0L);
@@ -161,7 +149,7 @@ public class EmployeTest {
 	}
 
 	@Test
-	public void exo109TestEquals() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+	public void exo107TestEquals() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
 		//Redéfinir la méthode equals (héritée d'Object) testant l'égalité sur l'ensemble des attributs de la classe Employe
 		LocalDate dateTime = new LocalDate(0L);
 		Derived d = new Derived("nom", "prenom", "matricule", dateTime, 500.0);
@@ -178,7 +166,7 @@ public class EmployeTest {
 	}
 
 	@Test
-	public void exo110TestHashcode() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+	public void exo108TestHashcode() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
 		//Redéfinir la méthode hashCode (héritée d'Object) en utilisant Objects.hash(...) et en respectant l'ordre
 		//nom, prenom, matricule, dateEmbauche, salaire
 
@@ -191,7 +179,7 @@ public class EmployeTest {
 	}
 
 	@Test
-	public void exo111TestAugmenterSalaire() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+	public void exo109TestAugmenterSalaire() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
 		//Coder la méthode augmenterSalaire prenant en paramètre un pourcentage d'augmentation de type Double
 		//et augmentant l'attribut salaire du pourcentage passé en paramètre :
 		//Ex : un salaire de 500.0, avec une augmentation de 0.50, cela donne un salaire de 750.0
@@ -200,4 +188,17 @@ public class EmployeTest {
 		TestUtils.callMethod(d, "augmenterSalaire", 0.50);
 		Assertions.assertThat(TestUtils.invokeGetter(d, "salaire")).isEqualTo(750.0);
 	}
+
+	@Test
+	public void exo110testClasseAbstraite() throws Exception {
+		//Rendre la classe Employe abstraite
+		TestUtils.checkAbstractClass("Employe");
+	}
+
+	@Test
+	public void exo111TestMethodAbstract() throws Exception{
+		//Déclarer dans la classe Employe une méthode abstraite getPrimeAnnuelle retournant un Double
+		TestUtils.checkAbstractMethod("Employe", "getPrimeAnnuelle", TestUtils.DOUBLE);
+	}
+
 }
