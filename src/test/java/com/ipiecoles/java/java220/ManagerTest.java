@@ -1,6 +1,8 @@
 package com.ipiecoles.java.java220;
 
 import org.assertj.core.api.Assertions;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeUtils;
 import org.joda.time.LocalDate;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -91,6 +93,8 @@ public class ManagerTest {
         //la prime du manager en fonction du nombre de membres
         //de son équipe (en utilisant Entreprise.PRIME_MANAGER_PAR_TECHNICIEN)
         Object d = TestUtils.getClasse("Manager").getConstructor().newInstance();
+        DateTime da = new DateTime(2017,2,5,1,1);
+        DateTimeUtils.setCurrentMillisFixed(da.getMillis());
         try {
             Assertions.assertThat(TestUtils.callMethod(d, "getPrimeAnnuelle")).isEqualTo(1008.5);
         }

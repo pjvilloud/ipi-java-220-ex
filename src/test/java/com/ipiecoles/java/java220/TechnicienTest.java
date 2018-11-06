@@ -1,6 +1,8 @@
 package com.ipiecoles.java.java220;
 
 import org.assertj.core.api.Assertions;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeUtils;
 import org.joda.time.LocalDate;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -146,6 +148,8 @@ public class TechnicienTest {
 		//à laquelle on ajoute un pourcentage en fonction du grade (idem exo 305) ainsi que la prime d'ancienneté
 		//multipliée par le nombre d'année d'ancienneté
 		Object d = TestUtils.getClasse("Technicien").getConstructor().newInstance();
+		DateTime date = new DateTime(2017,2,5,1,1);
+		DateTimeUtils.setCurrentMillisFixed(date.getMillis());
 		try {
 			TestUtils.invokeSetter(d, "grade", 3);
 			TestUtils.invokeSetter(d, "dateEmbauche", LocalDate.now());

@@ -1,6 +1,7 @@
 package com.ipiecoles.java.java220;
 
 import org.assertj.core.api.Assertions;
+import org.joda.time.DateTime;
 import org.joda.time.DateTimeUtils;
 import org.joda.time.LocalDate;
 import org.junit.AfterClass;
@@ -35,6 +36,8 @@ public class EntrepriseTest {
 
 		TestUtils.checkStaticMethod("Entreprise", "primeAnnuelleBase", TestUtils.DOUBLE, 0);
 
+		DateTime d = new DateTime(2017,2,5,1,1);
+		DateTimeUtils.setCurrentMillisFixed(d.getMillis());
 		Object resultat = TestUtils.callMethod("Entreprise", "primeAnnuelleBase");
 		Assertions.assertThat(resultat).isEqualTo(1008.5);
 
