@@ -153,7 +153,7 @@ public class TechnicienTest {
 		try {
 			TestUtils.invokeSetter(d, "grade", 3);
 			TestUtils.invokeSetter(d, "dateEmbauche", LocalDate.now());
-			Assertions.assertThat(TestUtils.callMethod(d, "getPrimeAnnuelle")).isEqualTo(2319.55);//1008.5 + 1311.05 + 100
+			Assertions.assertThat(TestUtils.callMethod(d, "getPrimeAnnuelle")).isEqualTo(1311.05);//1008.5 + 302.55 + 0
 		}
 		catch(Exception technicienException){
 			Assertions.fail("L'affectation n'aurait pas du lancer une exception");
@@ -162,7 +162,7 @@ public class TechnicienTest {
 		try {
 			TestUtils.invokeSetter(d, "grade", 5);
 			TestUtils.invokeSetter(d, "dateEmbauche", LocalDate.now().minusYears(3));
-			Assertions.assertThat(TestUtils.callMethod(d, "getPrimeAnnuelle")).isEqualTo(2821.25);//1008.5 + 1512.75 + 300
+			Assertions.assertThat(TestUtils.callMethod(d, "getPrimeAnnuelle")).isEqualTo(1812.75);//1008.5 + 504.25 + 300
 		}
 		catch(Exception technicienException){
 			Assertions.fail("L'affectation n'aurait pas du lancer une exception");
