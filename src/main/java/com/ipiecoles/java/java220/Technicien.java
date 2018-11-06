@@ -20,8 +20,8 @@ public class Technicien extends Employe implements Comparable<Technicien> {
 	}
 
 	public Double getPrimeAnnuelle() {
-		Double salaireBase = Entreprise.primeAnnuelleBase();
-		return salaireBase + salaireBase * (1 + (double) grade / 10) + Entreprise.PRIME_ANCIENNETE * this.getNombreAnneeAnciennete();
+		Double primeAnnuelleBase = Entreprise.primeAnnuelleBase();
+		return primeAnnuelleBase + primeAnnuelleBase * ((double) grade / 10) + Entreprise.PRIME_ANCIENNETE * this.getNombreAnneeAnciennete();
 	}
 
 	public Integer getNbConges() {
