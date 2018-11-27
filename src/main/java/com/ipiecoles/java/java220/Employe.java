@@ -2,6 +2,8 @@ package com.ipiecoles.java.java220;
 
 import org.joda.time.LocalDate;
 
+import java.util.Objects;
+
 /**
  * Created by pjvilloud on 21/09/17.
  */
@@ -38,7 +40,7 @@ public class Employe {
     }
 
     public void setDateEmbauche(LocalDate dateEmbauche) throws DateEmbaucheException {
-        if (dateEmbauche.getYear()<LocalDate.now().getYear()) throw new DateEmbaucheException("La date d'embauche ne peut être postérieure à la date courante");
+        if (dateEmbauche.isAfter(LocalDate.now())) throw new DateEmbaucheException("La date d'embauche ne peut être postérieure à la date courante");
         this.dateEmbauche = dateEmbauche;
     }
 
@@ -66,8 +68,38 @@ public class Employe {
         return prenom;
     }
 
-    private Integer getNombreAnneeAnciennete(){
+    public final Integer getNombreAnneeAnciennete(){
         return LocalDate.now().getYear() - this.dateEmbauche.getYear();
     }
+
+    public static Integer getNbConges() {
+        return Entreprise.NB_CONGES_BASE;
+    }
+
+    public String toString(){
+        String message = "Employe{";
+        message += "nom='"+this.nom+"', ";
+        message += "prenom='"+this.prenom+"', ";
+        message += "matricule='"+this.matricule+"', ";
+        message += "dateEmbauche="+this.dateEmbauche+", ";
+        message += "salaire="+this.salaire+"}";
+        return message;
+    }
+
+    public boolean equals(Object emp){
+       if (emp instanceof Employe) {
+           Employe compare = (Employe) emp;
+           return (Objects.equals(this.nom,compare.getNom())
+                   && Objects.equals(this.prenom,compare.getPrenom())
+                   && Objects.equals(this.matricule,compare.getMatricule())
+                   && Objects.equals(this.dateEmbauche,compare.getDateEmbauche())
+                   && Objects.equals(this.salaire,compare.getSalaire())
+           );
+       }
+       else
+           return false;
+
+    }
+
 
 }
