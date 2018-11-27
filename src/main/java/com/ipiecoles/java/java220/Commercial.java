@@ -17,7 +17,7 @@ public class Commercial extends Employe {
     @Override
     public Double getPrimeAnnuelle() {
         if(this.caAnnuel==null) return 500d;
-        return (this.caAnnuel*0.05<500 ? 500 : Math.rint(this.caAnnuel*0.05));
+        return (this.caAnnuel*0.05<500 ? 500 : Math.ceil(this.caAnnuel*0.05));
     }
 
     public Double getCaAnnuel() {
