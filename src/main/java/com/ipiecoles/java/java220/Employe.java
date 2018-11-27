@@ -37,7 +37,8 @@ public class Employe {
         this.matricule = matricule;
     }
 
-    public void setDateEmbauche(LocalDate dateEmbauche) {
+    public void setDateEmbauche(LocalDate dateEmbauche) throws DateEmbaucheException {
+        if (dateEmbauche.getYear()<LocalDate.now().getYear()) throw new DateEmbaucheException("La date d'embauche ne peut être postérieure à la date courante");
         this.dateEmbauche = dateEmbauche;
     }
 
