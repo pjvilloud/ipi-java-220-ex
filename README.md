@@ -34,7 +34,7 @@ Prime = 50% de l'année en cours. Ex : 2017 : 2017 / 2 = 1008.5
 
 Faire en sorte qu'elle ne puisse être redéfinie dans d'éventuelles sous-classes. Un employé enbauché en 2018 a une ancienneté de 0
 
-## Modifier le setter de dateEmbauche pour lever une Exception avec le message "La date d'embauche ne peut être postérieure à la date courante lorsque la date d'embauche est postérieure à la date courante
+## Modifier le setter de dateEmbauche pour lever une Exception avec le message "La date d'embauche ne peut être postérieure à la date courante" lorsque la date d'embauche est postérieure à la date courante
 
 ## Développer une méthode getNbConges retournant la constante de classe NB_CONGES_BASE de la classe Entreprise
 
