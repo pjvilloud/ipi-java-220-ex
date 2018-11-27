@@ -15,6 +15,8 @@ public class Main {
         System.out.println(d2.toString());
         System.out.println(d2.hashCode());
         */
+        Employe c = new Commercial();
+
     }
 
 }
