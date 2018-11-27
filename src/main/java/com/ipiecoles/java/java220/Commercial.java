@@ -12,6 +12,14 @@ public class Commercial extends Employe {
     private Double caAnnuel;
     private Integer performance;
 
+    public Integer getPerformance() {
+        return performance;
+    }
+
+    public void setPerformance(Integer performance) {
+        this.performance = performance;
+    }
+
     public Commercial() {
     }
 
@@ -30,18 +38,18 @@ public class Commercial extends Employe {
         return this.performance.equals(performance);
     }
 
-    public String equivalenceNote(Integer performance){
-        switch (performance){
+    public Note equivalenceNote(){
+        switch (this.performance){
             case 200:
-                return Objects.toString(Note.TRES_BIEN);
+                return Note.TRES_BIEN;
             case 150:
-                return Objects.toString(Note.BIEN);
+                return Note.BIEN;
             case 100:
-                return Objects.toString(Note.PASSABLE);
+                return Note.PASSABLE;
             case 50:
             case 0:
             DEFAULT:
-               return Objects.toString(Note.INSUFFISANT);
+               return Note.INSUFFISANT;
         }
         return null;
     }
@@ -60,8 +68,7 @@ public class Commercial extends Employe {
         Commercial com = (Commercial) o;
         if (!Objects.equals(caAnnuel, com.caAnnuel))
             return false;
-        Employe emp = (Employe) o;
-        return emp.equals(this);
+        return super.equals(o);
     }
 
     @Override
