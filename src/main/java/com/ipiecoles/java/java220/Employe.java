@@ -98,8 +98,10 @@ public class Employe {
        }
        else
            return false;
-
     }
 
-
+    @Override
+    public int hashCode() {
+        return 0;
+    }
 }
