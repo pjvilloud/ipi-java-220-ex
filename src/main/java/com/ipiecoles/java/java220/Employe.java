@@ -40,7 +40,7 @@ public class Employe {
     }
 
     public void setDateEmbauche(LocalDate dateEmbauche) throws DateEmbaucheException {
-        if (dateEmbauche.isAfter(LocalDate.now())) throw new DateEmbaucheException("La date d'embauche ne peut être postérieure à la date courante");
+        if (dateEmbauche != null && dateEmbauche.isAfter(LocalDate.now())) throw new DateEmbaucheException("La date d'embauche ne peut être postérieure à la date courante");
         this.dateEmbauche = dateEmbauche;
     }
 
@@ -86,22 +86,22 @@ public class Employe {
         return message;
     }
 
-    public boolean equals(Object emp){
-       if (emp instanceof Employe) {
-           Employe compare = (Employe) emp;
-           return (Objects.equals(this.nom,compare.getNom())
-                   && Objects.equals(this.prenom,compare.getPrenom())
-                   && Objects.equals(this.matricule,compare.getMatricule())
-                   && Objects.equals(this.dateEmbauche,compare.getDateEmbauche())
-                   && Objects.equals(this.salaire,compare.getSalaire())
-           );
-       }
-       else
-           return false;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employe employe = (Employe) o;
+        return Objects.equals(nom, employe.nom) &&
+                Objects.equals(prenom, employe.prenom) &&
+                Objects.equals(matricule, employe.matricule) &&
+                Objects.equals(dateEmbauche, employe.dateEmbauche) &&
+                Objects.equals(salaire, employe.salaire);
     }
 
     @Override
     public int hashCode() {
-        return 0;
+        return Objects.hash(nom, prenom, matricule, dateEmbauche, salaire);
     }
+
 }
+
