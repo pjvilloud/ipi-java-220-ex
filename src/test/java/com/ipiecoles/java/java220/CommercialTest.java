@@ -139,6 +139,5 @@ public class CommercialTest {
 		TestUtils.invokeSetter(c, "performance", 200);
 		Assertions.assertThat(TestUtils.callMethod(c, "equivalenceNote")).isEqualTo(TestUtils.getClasse("Note").getEnumConstants()[3]);
 
-
 	}
 }
