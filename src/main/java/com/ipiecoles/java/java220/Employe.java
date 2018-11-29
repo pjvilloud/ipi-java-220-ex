@@ -23,7 +23,12 @@ public abstract class Employe {
         this.nom = nom;
         this.prenom = prenom;
         this.matricule = matricule;
-        this.dateEmbauche = dateEmbauche;
+        try{
+            this.setDateEmbauche(dateEmbauche);
+        }
+        catch (DateEmbaucheException e){
+            System.out.println(e.getMessage());
+        }
         this.salaire = salaire;
     }
 
@@ -72,8 +77,12 @@ public abstract class Employe {
         return LocalDate.now().getYear() - this.dateEmbauche.getYear();
     }
 
-    public static Integer getNbConges() {
+    public Integer getNbConges() {
         return Entreprise.NB_CONGES_BASE;
+    }
+
+    public Integer anciennete(){
+        return LocalDate.now().getYear() - this.getDateEmbauche().getYear();
     }
 
     public String toString(){
@@ -91,11 +100,7 @@ public abstract class Employe {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employe employe = (Employe) o;
-        return Objects.equals(nom, employe.nom) &&
-                Objects.equals(prenom, employe.prenom) &&
-                Objects.equals(matricule, employe.matricule) &&
-                Objects.equals(dateEmbauche, employe.dateEmbauche) &&
-                Objects.equals(salaire, employe.salaire);
+        return this.hashCode() == o.hashCode();
     }
 
     @Override
