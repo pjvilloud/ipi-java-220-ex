@@ -108,8 +108,8 @@ public abstract class Employe {
         return Objects.hash(nom, prenom, matricule, dateEmbauche, salaire);
     }
 
-    public Double augmenterSalaire(Double pourcent){
-        return this.salaire += this.salaire*pourcent;
+    public void augmenterSalaire(Double pourcent){
+        this.salaire = this.salaire*(1+pourcent);
     }
 
     public abstract Double getPrimeAnnuelle();
