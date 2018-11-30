@@ -14,6 +14,8 @@ public abstract class Employe {
     private String matricule;
     private LocalDate dateEmbauche;
     private Double salaire;
+    private boolean tempsPartiel;
+    private String sexe;
 
     public Employe(){
 
@@ -30,6 +32,37 @@ public abstract class Employe {
             System.out.println(e.getMessage());
         }
         this.salaire = salaire;
+    }
+
+    public Employe(String nom, String prenom, String matricule, LocalDate dateEmbauche, Double salaire, boolean tempsPartiel, String sexe) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.matricule = matricule;
+        try{
+            this.setDateEmbauche(dateEmbauche);
+        }
+        catch (DateEmbaucheException e){
+            System.out.println(e.getMessage());
+        }
+        this.salaire = salaire;
+        this.tempsPartiel = tempsPartiel;
+        this.sexe = sexe;
+    }
+
+    public boolean isTempsPartiel() {
+        return tempsPartiel;
+    }
+
+    public void setTempsPartiel(boolean tempsPartiel) {
+        this.tempsPartiel = tempsPartiel;
+    }
+
+    public String getSexe() {
+        return sexe;
+    }
+
+    public void setSexe(String sexe) {
+        this.sexe = sexe;
     }
 
     public void setNom(String nom) {
@@ -92,6 +125,8 @@ public abstract class Employe {
         message += "matricule='"+this.matricule+"', ";
         message += "dateEmbauche="+this.dateEmbauche+", ";
         message += "salaire="+this.salaire+"}";
+        message += "tempsPartiel="+(this.tempsPartiel?"oui":"non")+"}";
+        message += "sexe="+this.sexe+"}";
         return message;
     }
 
@@ -105,7 +140,7 @@ public abstract class Employe {
 
     @Override
     public int hashCode() {
-        return Objects.hash(nom, prenom, matricule, dateEmbauche, salaire);
+        return Objects.hash(nom, prenom, matricule, dateEmbauche, salaire, tempsPartiel, sexe);
     }
 
     public void augmenterSalaire(Double pourcent){
