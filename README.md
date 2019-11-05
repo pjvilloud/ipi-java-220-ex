@@ -32,7 +32,7 @@ Prime = 50% de l'année en cours. Ex : 2017 : 2017 / 2 = 1008.5
 
 ## Déclarer et développer la méthode getNombreAnneeAnciennete calculant le nombre d'année d'ancienneté d'un employé
 
-Faire en sorte qu'elle ne puisse être redéfinie dans d'éventuelles sous-classes. Un employé enbauché en 2018 a une ancienneté de 0
+Faire en sorte qu'elle ne puisse être redéfinie dans d'éventuelles sous-classes. Un employé enbauché cette année a une ancienneté de 0
 
 ## Modifier le setter de dateEmbauche pour lever une Exception avec le message "La date d'embauche ne peut être postérieure à la date courante" lorsque la date d'embauche est postérieure à la date courante
 
