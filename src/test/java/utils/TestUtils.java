@@ -109,7 +109,7 @@ public class TestUtils {
 		return resultat;
 	}
 
-	public static Object callDeclaredMethodPrimitiveParameters(Object o, String methodName, Object... parameters) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+		public static Object callDeclaredMethodPrimitiveParameters(Object o, String methodName, Object... parameters) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
 		Object[] params = parameters.clone();
 		Class[] classes = new Class[parameters.length];
 
