@@ -4,10 +4,8 @@ import org.assertj.core.api.Assertions;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeUtils;
 import org.joda.time.LocalDate;
-import org.junit.AfterClass;
-import org.junit.FixMethodOrder;
-import org.junit.Test;
-import org.junit.runners.MethodSorters;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Test;
 import utils.TestUtils;
 
 import java.lang.reflect.InvocationTargetException;
@@ -17,7 +15,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class EntrepriseTest {
 
 	@Test
@@ -390,9 +387,9 @@ public class EntrepriseTest {
 
 		Assertions.assertThat(TestUtils.callMethod(c, "performanceEgale", 50)).isEqualTo(true);
 
-		c = TestUtils.getClasse("Commercial").getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 9000000.0, new Integer (150));
+		c = TestUtils.getClasse("Commercial").getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 9000000.0, Integer.valueOf(150));
 
-		Assertions.assertThat(TestUtils.callMethod(c, "performanceEgale", new Integer(150))).isEqualTo(true);
+		Assertions.assertThat(TestUtils.callMethod(c, "performanceEgale", Integer.valueOf(150))).isEqualTo(true);
 
 	}
 
@@ -845,7 +842,7 @@ public class EntrepriseTest {
 		Assertions.assertThat(TestUtils.callMethod(d, "salaireEquipeGrade1")).isEqualTo(1000.0);
 	}
 
-	@AfterClass
+	@AfterAll
 	public static void tearDown(){
 		DateTimeUtils.setCurrentMillisSystem();
 	}
