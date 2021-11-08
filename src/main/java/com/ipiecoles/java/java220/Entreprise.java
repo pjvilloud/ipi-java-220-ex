@@ -10,6 +10,10 @@ public class Entreprise {
     public static final Double PRIME_MANAGER_PAR_TECHNICIEN = 250.0;
     public static final Double PRIME_ANCIENNETE=100.0;
 
+    //Constructor
+    public Entreprise(){
+
+    }
     //
     public static Double primeAnnuelleBase(){
         return LocalDate.now().getYear() /2d;

@@ -181,7 +181,6 @@ public class EntrepriseTest {
 		Assertions.assertThat(TestUtils.invokeGetter(d, "matricule")).isEqualTo("matricule");
 		Assertions.assertThat(TestUtils.invokeGetter(d, "dateEmbauche")).isEqualTo(dateTime);
 		Assertions.assertThat(TestUtils.invokeGetter(d, "salaire")).isEqualTo(500.0);
-
 	}
 
 	@Test
@@ -200,7 +199,6 @@ public class EntrepriseTest {
 
 		TestUtils.invokeSetter(d, "dateEmbauche", dateTime.minusYears(5));
 		Assertions.assertThat(TestUtils.callMethod(d, "getNombreAnneeAnciennete")).isEqualTo(5);
-
 	}
 
 	@Test
@@ -224,7 +222,6 @@ public class EntrepriseTest {
 		} catch (Exception e) {
 			Assertions.assertThat(e.getCause().getMessage()).isEqualTo("La date d'embauche ne peut être postérieure à la date courante");
 		}
-
 	}
 
 	@Test
@@ -234,7 +231,6 @@ public class EntrepriseTest {
 		TestUtils.checkMethod("Employe", "getNbConges", TestUtils.INTEGER);
 
 		Assertions.assertThat(TestUtils.callMethod(new Derived(), "getNbConges")).isEqualTo(25);
-
 	}
 
 	@Test
