@@ -1,7 +1,7 @@
 package com.ipiecoles.java.java220;
 import org.joda.time.LocalDate;
 
-public class Entreprise {
+public class Entreprise{
 
     //Déclaration des variable
     public static final Double SALAIRE_BASE = 1480.27;

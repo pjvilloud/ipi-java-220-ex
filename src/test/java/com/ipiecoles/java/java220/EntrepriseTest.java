@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class EntrepriseTest {
-
 	@Test
 	public void exo001ConstantesClasse() throws Exception {
 		//Déclarer au niveau de la classe Entreprise les constantes de classe suivantes
@@ -113,7 +112,7 @@ public class EntrepriseTest {
 	}*/
 
 
-	class Derived extends Employe {
+	static class Derived extends Employe {
 		//A decommenter quand le constructeur avec les 5 arguments est codé
 		public Derived(String nom, String prenom, String matricule, LocalDate dateEmbauche, Double salaire) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
 			super(nom, prenom, matricule, dateEmbauche, salaire);
@@ -337,8 +336,6 @@ public class EntrepriseTest {
 
 		TestUtils.invokeSetter(d, "caAnnuel", 50049d);
 		Assertions.assertThat(TestUtils.callMethod(d, "getPrimeAnnuelle")).isEqualTo(2503.0);
-
-
 	}
 
 	@Test
@@ -386,7 +383,6 @@ public class EntrepriseTest {
 		c = TestUtils.getClasse("Commercial").getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 9000000.0, Integer.valueOf(150));
 
 		Assertions.assertThat(TestUtils.callMethod(c, "performanceEgale", Integer.valueOf(150))).isEqualTo(true);
-
 	}
 
 	@Test
