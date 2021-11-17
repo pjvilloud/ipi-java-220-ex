@@ -1,11 +1,13 @@
-# ipi-java-220-ex 
+# ipi-java-220-ex
+
 ![Build status](https://travis-ci.org/pjvilloud/ipi-java-220-ex.svg?branch=correction)
 
 Cours de Java, module 220 pour l'IPI
 
-La classe `EntrepriseTest` contient des tests permettant de corriger automatiquement les exercices. 
-Pour les exécuter, clic droit sur la classe `EntrepriseTest` : 
-- IntelliJ : => Run EntrepriseTest 
+La classe `EntrepriseTest` contient des tests permettant de corriger automatiquement les exercices. Pour les exécuter,
+clic droit sur la classe `EntrepriseTest` :
+
+- IntelliJ : => Run EntrepriseTest
 - Eclipse : => Run As => Junit Test
 
 # Exercice 0 : Entreprise
@@ -20,12 +22,12 @@ Pour les exécuter, clic droit sur la classe `EntrepriseTest` :
 
 ## 002 : Déclarer au niveau de la classe `Entreprise`, une méthode `primeAnnuelleBase`, publique et statique calculant la prime de base pour tous les employés de l'entreprise de la manière suivante :
 
-Utiliser la classe `LocalDate` (de **joda time**, attention aux imports) pour obtenir l'année courante.
-Prime = 50% de l'année en cours. Ex : 2017 : 2017 / 2 = 1008.5
+Utiliser la classe `LocalDate` (de **joda time**, attention aux imports) pour obtenir l'année courante. Prime = 50% de
+l'année en cours. Ex : 2017 : 2017 / 2 = 1008.5
 
 # Exercice 1 : Employé
 
-## 101 : Ajouter dans la classe `Employe` les champs suivants avec leurs getters/setters : 
+## 101 : Ajouter dans la classe `Employe` les champs suivants avec leurs getters/setters :
 
 - `nom` : `String`
 - `prenom` : `String`
@@ -33,11 +35,12 @@ Prime = 50% de l'année en cours. Ex : 2017 : 2017 / 2 = 1008.5
 - `dateEmbauche` : `LocalDate`
 - `salaire` : `Double`
 
-## 102 : Définir un constructeur par défaut dans la classe `Employe`, puis un constructeur avec l'ensemble des arguments précédemment créés, dans le même ordre puis décommenter la ligne 122 de `EntrepriseTest`
+## 102 : Définir un constructeur par défaut dans la classe `Employe`, puis un constructeur avec l'ensemble des arguments précédemment créés, dans le même ordre puis décommenter la ligne 119 de `EntrepriseTest`
 
 ## 103 : Déclarer et développer la méthode `getNombreAnneeAnciennete` calculant le nombre d'année d'ancienneté d'un employé
 
-Faire en sorte qu'elle ne puisse être redéfinie dans d'éventuelles sous-classes. Un employé embauché cette année a une ancienneté de 0
+Faire en sorte qu'elle ne puisse être redéfinie dans d'éventuelles sous-classes. Un employé embauché cette année a une
+ancienneté de 0
 
 ## 104 : Modifier le setter de `dateEmbauche` pour lever une `Exception` avec le message `"La date d'embauche ne peut être postérieure à la date courante"` lorsque la date d'embauche est postérieure à la date courante
 
@@ -73,10 +76,11 @@ Faire en sorte que la prime soit toujours arrondi à l'euro supérieur. Voir la 
 
 Appeler la méthode `equals` de la classe `Employe`
 
-## 206 : Ajouter les éléments suivants dans la classe `Commercial` 
+## 206 : Ajouter les éléments suivants dans la classe `Commercial`
 
 - un attribut `performance` de type `Integer`
-- une méthode `performanceEgale` prenant un `Integer` en paramètre qui renvoie `true` si la performance du commercial est égale à celle passée en paramètre, `false` sinon
+- une méthode `performanceEgale` prenant un `Integer` en paramètre qui renvoie `true` si la performance du commercial
+  est égale à celle passée en paramètre, `false` sinon
 
 ## 207 : Créer un enum note dans un fichier à part avec les valeurs `INSUFFISANT, PASSABLE, BIEN, TRES_BIEN` et créer une méthode `equivalenceNote` (sans utiliser de `if`) dans `Commercial` traduisant une performance en `Note` :
 
@@ -110,7 +114,7 @@ Ex : Grade 3 : 30% d'augmentation : 1000.0 de salaire avec grade 1 : 1100.0
 
 ## 401 : Rendre la classe `Employe` abstraite
 
-## 402 : Rendre la méthode `getPrimeAnnuelle` d'`Employe` abstraite. 
+## 402 : Rendre la méthode `getPrimeAnnuelle` d'`Employe` abstraite.
 
 # Exercice 5 : Manager
 
