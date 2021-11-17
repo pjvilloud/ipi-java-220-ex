@@ -15,7 +15,8 @@ public class Employe {
     private LocalDate dateEmbauche;
     private Double salaire;
 
-    public Employe(){}
+    public Employe(){
+    }
 
     public Employe(String nom, String prenom, String matricule, LocalDate dateEmbauche, Double salaire){
         this.nom = nom;
@@ -99,12 +100,14 @@ public class Employe {
     public int hashCode() {
         return Objects.hash(nom, prenom, matricule, dateEmbauche, salaire);
     }
-    public void augmenterSalaire(Double pourcentage){
-        this.salaire = this.getSalaire() * (1 + pourcentage);
+    public Double augmenterSalaire(Double pourcentage) {
+         this.salaire = this.getSalaire() * (1 + pourcentage);
+         return salaire;
     }
     public  Double getPrimeAnnuelle(){
         return Entreprise.primeAnnuelleBase();
     }
+
 
 }
 

@@ -2,7 +2,7 @@ package com.ipiecoles.java.java220;
 
 import org.joda.time.LocalDate;
 
-public class Main {
+public class Main extends Employe {
     public static void main (String[] args){
         System.out.println("Hello to my Java world");
         System.out.println(Entreprise.primeAnnuelleBase());
@@ -13,6 +13,6 @@ public class Main {
         em1.equals("justin");
         System.out.println(em1.getNom().equals("justin"));
         System.out.println(em1.hashCode());
-
+        System.out.println(em1.augmenterSalaire(1.5));
     }
 }
