@@ -14,6 +14,8 @@ public abstract class Employe {
     private String matricule;
     private LocalDate dateEmbauche;
     private Double salaire;
+    private Boolean tempsPartiel;
+    private String sexe;
 
     // getters
     public String getNom() {return nom;}
@@ -21,6 +23,8 @@ public abstract class Employe {
     public String getMatricule() {return matricule;}
     public LocalDate getDateEmbauche(){return dateEmbauche;}
     public Double getSalaire(){return salaire;}
+    public Boolean getTempsPartiel(){return tempsPartiel;}
+    public String getSexe(){return sexe;}
 
     // setters
     public void setNom(String newNom){this.nom = newNom;}
@@ -33,6 +37,8 @@ public abstract class Employe {
         this.dateEmbauche = newDateEmbauche;
     }
     public void setSalaire(Double newSalaire){this.salaire = newSalaire;}
+    public void setTempsPartiel(Boolean newTempsPartiel){this.tempsPartiel = newTempsPartiel;}
+    public void setSexe(String newSexe){this.sexe = newSexe;}
 
     public Employe(){
     }
@@ -43,6 +49,12 @@ public abstract class Employe {
         matricule = newMatricule;
         dateEmbauche = newDateEmbauche;
         salaire = newSalaire;
+    }
+
+    public Employe(String newNom, String newPrenom, String newMatricule, LocalDate newDateEmbauche, Double newSalaire, Boolean newTempsPartiel, String newSexe) {
+        this(newNom, newPrenom, newMatricule, newDateEmbauche, newSalaire);
+        this.tempsPartiel = newTempsPartiel;
+        this.sexe = newSexe;
     }
 
     public final Integer getNombreAnneeAnciennete() throws Exception {
@@ -63,6 +75,8 @@ public abstract class Employe {
         sb.append(", matricule='").append(matricule).append('\'');
         sb.append(", dateEmbauche=").append(dateEmbauche);
         sb.append(", salaire=").append(salaire);
+        sb.append(", tempsPartiel=").append(tempsPartiel);
+        sb.append(", sexe=").append(sexe);
         sb.append('}');
         return sb.toString();
     }
@@ -77,13 +91,15 @@ public abstract class Employe {
         if (nom != null ? !nom.equals(employe.nom): employe.nom != null) return false;
         if (prenom != null ? !prenom.equals(employe.prenom): employe.prenom != null) return false;
         if (matricule != null ? !matricule.equals(employe.matricule): employe.matricule != null) return false;
+        if (sexe != null ? !sexe.equals(employe.sexe): employe.sexe != null) return false;
         if (Double.compare(employe.salaire,salaire) != 0) return false;
+        if (Boolean.compare(employe.tempsPartiel,tempsPartiel) != 0) return false;
         return dateEmbauche != null ? dateEmbauche.equals(employe.dateEmbauche) : employe.dateEmbauche == null;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.nom, this.prenom, this.matricule, this.dateEmbauche, this.salaire);
+        return Objects.hash(this.nom, this.prenom, this.matricule, this.dateEmbauche, this.salaire, this.tempsPartiel, this.sexe);
     }
 
     public void augmenterSalaire(Double pourcentage) {

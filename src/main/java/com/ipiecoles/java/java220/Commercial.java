@@ -42,6 +42,7 @@ public class Commercial extends Employe {
         return this.performance.equals(testPerformance);
     }
 
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Commercial)) return false;
@@ -51,6 +52,22 @@ public class Commercial extends Employe {
         Commercial commercial = (Commercial) o;
 
         return Double.compare(commercial.caAnnuel, caAnnuel) == 0;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Commercial{");
+        sb.append("nom='").append(super.getNom()).append('\'');
+        sb.append(", prenom='").append(super.getPrenom()).append('\'');
+        sb.append(", matricule='").append(super.getMatricule()).append('\'');
+        sb.append(", dateEmbauche=").append(super.getDateEmbauche());
+        sb.append(", salaire=").append(super.getSalaire());
+        sb.append(", tempsPartiel=").append(super.getTempsPartiel());
+        sb.append(", sexe=").append(super.getSexe());
+        sb.append(", caAnnuel=").append(caAnnuel);
+        sb.append(", performance=").append(performance);
+        sb.append('}');
+        return sb.toString();
     }
 
     public Note equivalenceNote (){
