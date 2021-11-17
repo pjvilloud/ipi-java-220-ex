@@ -21,11 +21,11 @@ public class Technicien extends Employe implements Comparable<Technicien>{
 
     /**
      * @param grade the grade to set
-     * @throws TechnicienException
+     * @Throws TechnicienException
      */
     public void setGrade(Integer grade) throws TechnicienException {
         if(grade <= 0 || grade > 5) {
-            throw new TechnicienException(TechnicienException.GRADE, this, grade);
+            throw new TechnicienException(TechnicienException.GRADE, this ,grade);
         }
         this.grade = grade;
     }
@@ -43,7 +43,7 @@ public class Technicien extends Employe implements Comparable<Technicien>{
     @Override
     public Double getPrimeAnnuelle(){
         Double primeAnnuelleBase = Entreprise.primeAnnuelleBase();
-        return primeAnnuelleBase + primeAnnuelleBase * ((double)grade / 10 + Entreprise.primeAnnuelleBase() * this.getPrimeAnnuelle());
+        return primeAnnuelleBase + primeAnnuelleBase * ((double)grade / 10 )+ Entreprise.PRIME_ANCIENNETE * this.getNombreAnneeAnciennete();
     }
 
     @Override
