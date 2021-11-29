@@ -7,8 +7,8 @@ import java.util.Objects;
 public class Technicien extends Employe implements Comparable<Technicien>{
     private Integer grade;
 
-    public Technicien(String nom, String prenom, String matricule, LocalDate dateEmbauche, Double salaire, Integer grade) {
-        super(nom, prenom, matricule, dateEmbauche, salaire);
+    public Technicien(String nom, String prenom, String matricule, LocalDate dateEmbauche, Double salaire, Boolean tempsPartiel, String sexe, Integer grade) {
+        super(nom, prenom, matricule, dateEmbauche, salaire, tempsPartiel, sexe);
         this.grade = grade;
     }
 

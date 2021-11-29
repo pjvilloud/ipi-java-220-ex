@@ -7,8 +7,8 @@ import java.util.HashSet;
 public class Manager extends Employe {
     private HashSet<Technicien> equipe = new HashSet<>();
 
-    public Manager(String nom, String prenom, String matricule, LocalDate dateEmbauche, Double salaire, HashSet<Technicien> equipe) {
-        super(nom, prenom, matricule, dateEmbauche, salaire);
+    public Manager(String nom, String prenom, String matricule, LocalDate dateEmbauche, Double salaire, Boolean tempsPartiel, String sexe, HashSet<Technicien> equipe) {
+        super(nom, prenom, matricule, dateEmbauche, salaire, tempsPartiel, sexe);
         this.equipe = equipe;
     }
 
@@ -27,8 +27,8 @@ public class Manager extends Employe {
         this.equipe.add(tech);
     }
 
-    public void ajoutTechnicienEquipe(String nom, String prenom, String matricule, LocalDate dateEmbauche, Double salaire, Integer grade) {
-        this.ajoutTechnicienEquipe((new Technicien(nom, prenom, matricule, dateEmbauche, salaire, grade)));
+    public void ajoutTechnicienEquipe(String nom, String prenom, String matricule, LocalDate dateEmbauche, Double salaire, Boolean tempsPartiel, String sexe, Integer grade) {
+        this.ajoutTechnicienEquipe((new Technicien(nom, prenom, matricule, dateEmbauche, salaire, tempsPartiel, sexe, grade)));
     }
 
     @Override
