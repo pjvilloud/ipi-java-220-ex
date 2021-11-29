@@ -13,8 +13,8 @@ public class Manager extends Employe{
 
     public Manager(){}
 
-    public Manager(String nom, String prenom, String matricule, LocalDate dateEmbauche, Double salaire, HashSet<Technicien> equipe){
-        super(nom, prenom, matricule, dateEmbauche, salaire);
+    public Manager(String nom, String prenom, String matricule, LocalDate dateEmbauche, Double salaire,Boolean tempsPartiel, String sexe, HashSet<Technicien> equipe){
+        super(nom, prenom, matricule, dateEmbauche, salaire, tempsPartiel,sexe);
         this.equipe = equipe;
     }
     @Override
@@ -34,8 +34,8 @@ public class Manager extends Employe{
         equipe.add(technicien);
     }
 
-    public void ajoutTechnicienEquipe(String nom, String prenom, String matricule, LocalDate dateEmbauche, Double salaire, Integer grade) throws TechnicienException {
-        this.ajoutTechnicienEquipe(new Technicien(nom, prenom, matricule, dateEmbauche, salaire, grade));
+    public void ajoutTechnicienEquipe(String nom, String prenom, String matricule, LocalDate dateEmbauche, Double salaire, Integer grade,Boolean tempsPartiel, String sexe) throws TechnicienException {
+        this.ajoutTechnicienEquipe(new Technicien(nom, prenom, matricule, dateEmbauche, salaire, grade, tempsPartiel,sexe));
     }
 
     public void setSalaire(Double salaire){

@@ -14,16 +14,20 @@ public abstract class Employe {
     private String matricule;
     private LocalDate dateEmbauche;
     private Double salaire;
+    private Boolean tempsPartiel;
+    private String sexe;
 
     public Employe(){
     }
 
-    public Employe(String nom, String prenom, String matricule, LocalDate dateEmbauche, Double salaire){
+    public Employe(String nom, String prenom, String matricule, LocalDate dateEmbauche, Double salaire,Boolean tempsPartiel, String sexe ){
         this.nom = nom;
         this.prenom = prenom;
         this.matricule = matricule;
         this.dateEmbauche = dateEmbauche;
         this.salaire = salaire;
+        this.tempsPartiel= tempsPartiel;
+        this.sexe= sexe;
     }
 
     public final Integer getNombreAnneeAnciennete(){
@@ -57,6 +61,21 @@ public abstract class Employe {
         return dateEmbauche;
     }
 
+    public Boolean getTempsPartiel() {
+        return tempsPartiel;
+    }
+    public String getSexe() {
+        return sexe;
+    }
+
+    public void setSexe(String sexe) {
+        this.sexe = sexe;
+    }
+
+    public void setTempsPartiel(Boolean tempsPartiel) {
+        this.tempsPartiel = tempsPartiel;
+    }
+
     public void setDateEmbauche(LocalDate dateEmbauche) throws Exception{
         if (dateEmbauche != null && dateEmbauche.isAfter(LocalDate.now())){
             throw new Exception("La date d'embauche ne peut être postérieure à la date courante");
@@ -83,6 +102,8 @@ public abstract class Employe {
                 ", matricule='" + matricule + '\'' +
                 ", dateEmbauche=" + dateEmbauche +
                 ", salaire=" + salaire +
+                ", tempsPartiel=" + tempsPartiel +
+                ", sexe=" + sexe +
                 '}';
     }
     @Override
@@ -94,11 +115,13 @@ public abstract class Employe {
                 Objects.equals(prenom, employe.prenom) &&
                 Objects.equals(matricule, employe.matricule) &&
                 Objects.equals(dateEmbauche, employe.dateEmbauche) &&
-                Objects.equals(salaire, employe.salaire);
+                Objects.equals(salaire, employe.salaire) &&
+                Objects.equals(tempsPartiel, employe.tempsPartiel) &&
+                Objects.equals(sexe, employe.sexe);
     }
     @Override
     public int hashCode() {
-        return Objects.hash(nom, prenom, matricule, dateEmbauche, salaire);
+        return Objects.hash(nom, prenom, matricule, dateEmbauche, salaire,tempsPartiel,sexe);
     }
     public void augmenterSalaire(Double pourcentage) {
          this.salaire = this.getSalaire() * (1 + pourcentage);
