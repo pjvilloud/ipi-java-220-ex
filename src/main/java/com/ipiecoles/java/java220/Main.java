@@ -14,5 +14,9 @@ public class Main {
         //System.out.println(em1.getNom().equals("justin"));
         //System.out.println(em1.hashCode());
         //System.out.println(em1.augmenterSalaire(1.5));
+
+        //Cadre cadre1 = new Cadre( 1d , super("roaj", "gh"));
+        //System.out.println(cadre1.toString());
     }
+
 }

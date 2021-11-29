@@ -20,6 +20,7 @@ public class Cadre extends  Employe{
         this.coefficient= coefficient;
     }
 
+
     public Double getCoefficient() {
         return coefficient;
     }
@@ -36,23 +37,22 @@ public class Cadre extends  Employe{
 
     @Override
     public Integer getNbConges(){
-        return Entreprise.NB_CONGES_BASE+coefficient.intValue();
+        return Entreprise.NB_CONGES_BASE + coefficient.intValue();
     }
 
     @Override
     public String toString() {
-        return "Cadre{" +
-                "coefficient=" + coefficient +
-                '}'+'\''+
-                "Employe{" +
-                "nom='" + super.getNom() + '\'' +
-                ", prenom='" + super.getPrenom() + '\'' +
-                ", matricule='" + super.getMatricule() + '\'' +
-                ", dateEmbauche=" + super.getDateEmbauche() +
-                ", salaire=" + super.getSalaire() +
-                ", tempsPartiel=" + super.getTempsPartiel() +
-                ", sexe=" + super.getSexe() +
-                '}'+super.toString();
+        final StringBuilder sb = new StringBuilder("Cadre{");
+        sb.append("nom='").append(super.getNom()).append('\'');
+        sb.append(", prenom='").append(super.getPrenom()).append('\'');
+        sb.append(", matricule='").append(super.getMatricule()).append('\'');
+        sb.append(", dateEmbauche=").append(super.getDateEmbauche()).append('\'');
+        sb.append(", salaire=").append(super.getSalaire()).append('\'');
+        sb.append(", tempsPartiel=").append(getTempsPartiel()).append('\'');
+        sb.append(", sexe=").append(getSexe()).append('\'');
+        sb.append(", coefficient=").append(coefficient).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 
     @Override
