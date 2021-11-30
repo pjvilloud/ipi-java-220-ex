@@ -163,12 +163,14 @@ public abstract class Employe {
 		if (nom != null ? !nom.equals(employe.nom) : employe.nom != null) return false;
 		if (prenom != null ? !prenom.equals(employe.prenom) : employe.prenom != null) return false;
 		if (matricule != null ? !matricule.equals(employe.matricule) : employe.matricule != null) return false;
+		if (sexe != null ? !sexe.equals(employe.sexe) : employe.sexe != null) return false;
+		if (tempsPartiel != null ? !tempsPartiel.equals(employe.tempsPartiel) : employe.tempsPartiel != null) return false;
 		return dateEmbauche != null ? dateEmbauche.equals(employe.dateEmbauche) : employe.dateEmbauche == null;
 
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(nom, prenom, matricule, dateEmbauche, salaire);
+		return Objects.hash(nom, prenom, matricule, dateEmbauche, salaire, tempsPartiel, sexe);
 	}
 }
