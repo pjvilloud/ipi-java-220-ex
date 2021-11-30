@@ -1,2 +1,3 @@
-package com.ipiecoles.java.java220;public enum note {
-}
+package com.ipiecoles.java.java220;
+
+public enum Note { INSUFISSANT, PASSABLE, BIEN, TRES_BIEN}
