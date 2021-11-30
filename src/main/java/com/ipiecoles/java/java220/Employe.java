@@ -16,6 +16,10 @@ public abstract class Employe {
 	private LocalDate dateEmbauche;
 	
 	private Double salaire = Entreprise.SALAIRE_BASE;
+
+	private Boolean tempsPartiel;
+
+	private String sexe;
 	
 	public Employe() {
 		
@@ -27,6 +31,23 @@ public abstract class Employe {
 		this.matricule = matricule;
 		this.dateEmbauche = dateEmbauche;
 		this.salaire = salaire;
+	}
+
+	public Boolean getTempsPartiel() {
+		return tempsPartiel;
+	}
+
+	public void setTempsPartiel(Boolean tempsPartiel) {
+		this.tempsPartiel = tempsPartiel;
+	}
+
+
+	public String getSexe() {
+		return sexe;
+	}
+
+	public void setSexe(String sexe) {
+		this.sexe = sexe;
 	}
 
 	public final Integer getNombreAnneeAnciennete() {
