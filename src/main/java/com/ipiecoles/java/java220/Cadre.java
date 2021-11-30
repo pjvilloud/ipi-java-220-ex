@@ -30,6 +30,10 @@ public class Cadre extends Employe {
 		return Entreprise.primeAnnuelleBase() * coefficient;
 	}
 
+	public Integer getNbConges() {
+		return super.getNbConges() + (int)Math.ceil(this.coefficient);
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(super.hashCode(), coefficient);
