@@ -7,10 +7,6 @@ public class Commercial extends Employe {
 	private Double caAnnuel = 0d;
 
 	private Integer performance;
-
-	public Commercial() {
-		
-	}
 	
 	public Commercial(String nom, String prenom, String matricule, LocalDate dateEmbauche, Double salaire,
 			Double caAnnuel) {

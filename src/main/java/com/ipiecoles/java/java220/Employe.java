@@ -16,10 +16,11 @@ public abstract class Employe {
 	private LocalDate dateEmbauche;
 	
 	private Double salaire = Entreprise.SALAIRE_BASE;
-	
-	public Employe() {
-		
-	}
+
+	private Boolean tempsPartiel;
+
+	private String sexe;
+
 	
 	public Employe(String nom, String prenom, String matricule, LocalDate dateEmbauche, Double salaire) {
 		this.nom = nom;
@@ -27,6 +28,12 @@ public abstract class Employe {
 		this.matricule = matricule;
 		this.dateEmbauche = dateEmbauche;
 		this.salaire = salaire;
+	}
+
+	public Employe(String nom, String prenom, String matricule, LocalDate dateEmbauche, Double salaire, Boolean tempsPartiel, String sexe) {
+		this(nom,prenom,matricule,dateEmbauche,salaire);
+		this.tempsPartiel = tempsPartiel;
+		this.sexe = sexe;
 	}
 
 	public final Integer getNombreAnneeAnciennete() {
@@ -117,6 +124,23 @@ public abstract class Employe {
 		this.salaire = salaire;
 	}
 
+
+	public Boolean getTempsPartiel() {
+		return tempsPartiel;
+	}
+
+	public void setTempsPartiel(Boolean tempsPartiel) {
+		this.tempsPartiel = tempsPartiel;
+	}
+
+	public String getSexe() {
+		return sexe;
+	}
+
+	public void setSexe(String sexe) {
+		this.sexe = sexe;
+	}
+
 	@Override
 	public String toString() {
 		final StringBuilder sb = new StringBuilder("Employe{");
@@ -125,6 +149,8 @@ public abstract class Employe {
 		sb.append(", matricule='").append(matricule).append('\'');
 		sb.append(", dateEmbauche=").append(dateEmbauche);
 		sb.append(", salaire=").append(salaire);
+		sb.append(", tempsPartiel=").append(tempsPartiel);
+		sb.append(", sexe=").append(sexe);
 		sb.append('}');
 		return sb.toString();
 	}
@@ -140,12 +166,14 @@ public abstract class Employe {
 		if (nom != null ? !nom.equals(employe.nom) : employe.nom != null) return false;
 		if (prenom != null ? !prenom.equals(employe.prenom) : employe.prenom != null) return false;
 		if (matricule != null ? !matricule.equals(employe.matricule) : employe.matricule != null) return false;
-		return dateEmbauche != null ? dateEmbauche.equals(employe.dateEmbauche) : employe.dateEmbauche == null;
+		if (dateEmbauche != null ? !dateEmbauche.equals(employe.dateEmbauche) : employe.dateEmbauche != null) return false;
+		if (tempsPartiel != null ? !tempsPartiel.equals(employe.tempsPartiel) : employe.tempsPartiel != null) return false;
+		return sexe != null ? sexe.equals(employe.sexe) : employe.sexe == null;
 
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(nom, prenom, matricule, dateEmbauche, salaire);
+		return Objects.hash(nom, prenom, matricule, dateEmbauche, salaire, tempsPartiel, sexe);
 	}
 }

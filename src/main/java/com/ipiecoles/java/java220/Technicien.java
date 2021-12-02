@@ -9,11 +9,7 @@ import java.util.Objects;
 public class Technicien extends Employe implements Comparable<Technicien> {
 	
 	private Integer grade;
-	
-	public Technicien() {
 
-	}
-		
 	public Technicien(String nom, String prenom, String matricule, LocalDate dateEmbauche, Double salaire, Integer grade) throws TechnicienException {
 		super(nom, prenom, matricule, dateEmbauche, salaire);
 		this.setGrade(grade);
