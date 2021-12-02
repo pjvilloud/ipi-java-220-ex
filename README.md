@@ -33,7 +33,7 @@ Prime = 50% de l'année en cours. Ex : 2017 : 2017 / 2 = 1008.5
 - `dateEmbauche` : `LocalDate`
 - `salaire` : `Double`
 
-## 102 : Définir un constructeur par défaut dans la classe `Employe`, puis un constructeur avec l'ensemble des arguments précédemment créés, dans le même ordre puis décommenter la ligne 122 de `EntrepriseTest`
+## 102 : Définir un constructeur par défaut dans la classe `Employe`, puis un constructeur avec l'ensemble des arguments précédemment créés, dans le même ordre puis décommenter la ligne 20 de `EmployeTest`
 
 ## 103 : Déclarer et développer la méthode `getNombreAnneeAnciennete` calculant le nombre d'année d'ancienneté d'un employé
 
