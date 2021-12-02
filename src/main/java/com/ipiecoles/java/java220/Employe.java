@@ -1,7 +1,6 @@
 package com.ipiecoles.java.java220;
 
 import org.joda.time.LocalDate;
-import org.joda.time.LocalDate;
 
 import java.util.Objects;
 
