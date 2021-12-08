@@ -1,14 +1,14 @@
 package com.ipiecoles.java.java220;
 
 import org.joda.time.LocalDate;
-import org.w3c.dom.ranges.Range;
 
-import java.awt.font.NumericShaper;
 import java.util.Objects;
 
 public class Commercial extends Employe{
 
     private Double caAnnuel;
+
+    public Integer performance;
 
     public Integer getPerformance() {
         return performance;
@@ -17,8 +17,6 @@ public class Commercial extends Employe{
     public void setPerformance(Integer performance) {
         this.performance = performance;
     }
-
-    public Integer performance;
 
 
     public Commercial(){
@@ -32,7 +30,6 @@ public class Commercial extends Employe{
 
     public Commercial(String name, String fName, String matric, LocalDate dateEmb, Double salary, Double caAnnuel,Integer perf) {
         this(name, fName, matric, dateEmb, salary,caAnnuel);
-        this.caAnnuel = caAnnuel;
         this.performance=perf;
     }
 

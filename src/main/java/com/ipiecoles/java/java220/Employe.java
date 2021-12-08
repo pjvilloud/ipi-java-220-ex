@@ -2,28 +2,25 @@ package com.ipiecoles.java.java220;
 
 import org.joda.time.LocalDate;
 
-import java.util.Comparator;
 import java.util.Objects;
 
-/**
- * Created by pjvilloud on 21/09/17.
- */
 public abstract class Employe{
     //Variable
     private String nom;
     private String prenom;
     private String matricule;
     private LocalDate dateEmbauche;
-    private Double salaire;
+    private Double salaire = Entreprise.SALAIRE_BASE;
+
+
+
+    private Boolean tempsPartiel;
+    private String sexe;
 
 
     //Constructor
     public Employe(){
-        nom="nom";
-        prenom="prenom";
-        matricule="matricule";
-        dateEmbauche=LocalDate.now();
-        salaire=500d;
+
     }
 
     //Constructeur avec arguments
@@ -36,16 +33,24 @@ public abstract class Employe{
         this.salaire=salary;
     }
 
+    public Employe(String nom, String prenom, String matricule, LocalDate dateEmbauche, Double salaire, Boolean tempsPartiel, String sexe) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.matricule = matricule;
+        this.dateEmbauche = dateEmbauche;
+        this.salaire = salaire;
+        this.tempsPartiel = tempsPartiel;
+        this.sexe = sexe;
+    }
+
     //Methode pour savoir le nombre d'année d'ancienneté
     public final Integer getNombreAnneeAnciennete() {
         return LocalDate.now().getYear() - dateEmbauche.getYear();
     }
 
     //Methode augmenter salaire
-    public Double augmenterSalaire(Double tauxAugmentation){
-        Double NewSalaire = this.salaire*tauxAugmentation+this.salaire;
-
-        return this.salaire=NewSalaire;
+    public void augmenterSalaire(Double tauxAugmentation){
+        this.salaire = this.getSalaire() * (1 + tauxAugmentation);
     }
 
     //Methode getPrimeAnnuelle
@@ -60,6 +65,8 @@ public abstract class Employe{
         sb.append(", matricule='").append(matricule).append("'");
         sb.append(", dateEmbauche=").append(dateEmbauche);
         sb.append(", salaire=").append(salaire);
+        sb.append(", tempsPartiel=").append(tempsPartiel);
+        sb.append(", sexe=").append(sexe);
         sb.append('}');
         return sb.toString();
     }
@@ -69,18 +76,25 @@ public abstract class Employe{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employe employe = (Employe) o;
-        return Objects.equals(nom, employe.nom) && Objects.equals(prenom, employe.prenom) && Objects.equals(matricule, employe.matricule) && Objects.equals(dateEmbauche, employe.dateEmbauche) && Objects.equals(salaire, employe.salaire);
+        return Objects.equals(nom, employe.nom) && Objects.equals(prenom, employe.prenom) && Objects.equals(matricule, employe.matricule) && Objects.equals(dateEmbauche, employe.dateEmbauche) && Objects.equals(salaire, employe.salaire)  && Objects.equals(tempsPartiel, employe.tempsPartiel) && Objects.equals(sexe, employe.sexe);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nom, prenom, matricule, dateEmbauche, salaire);
+        return Objects.hash(nom, prenom, matricule, dateEmbauche, salaire, tempsPartiel, sexe);
     }
 
 
 
-
     //Getter//////////////////////
+    public Boolean getTempsPartiel() {
+        return tempsPartiel;
+    }
+
+    public String getSexe() {
+        return sexe;
+    }
+
     public LocalDate getDateEmbauche() {
         return dateEmbauche;
     }
@@ -101,6 +115,14 @@ public abstract class Employe{
         return salaire;
     }
     ////Setter///////////////
+    public void setTempsPartiel(Boolean tempsPartiel) {
+        this.tempsPartiel = tempsPartiel;
+    }
+
+    public void setSexe(String sexe) {
+        this.sexe = sexe;
+    }
+
     public void setNom(String nom) {
         this.nom = nom;
     }

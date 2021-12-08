@@ -703,7 +703,6 @@ public class EntrepriseTest {
 		catch(Exception technicienException){
 			Assertions.fail("L'affectation n'aurait pas du lancer une exception");
 		}
-
 	}
 
 	@Test
