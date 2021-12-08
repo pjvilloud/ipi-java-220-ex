@@ -13,21 +13,19 @@ public abstract class Employe {
     private String matricule;
     private LocalDate dateEmbauche;
     private Double salaire;
+    private Boolean tempsPartiel;
+    private String sexe;
 
-    public Employe() {
-        this.nom = "";
-        this.prenom = "";
-        this.matricule = "";
-        this.dateEmbauche = null;
-        this.salaire = null;
-    }
+    public Employe() {}
 
-    public Employe(String nom, String prenom, String matricule, LocalDate dateEmbauche, Double salaire) {
+    public Employe(String nom, String prenom, String matricule, LocalDate dateEmbauche, Double salaire, Boolean tempsPartiel, String sexe) {
         this.nom = nom;
         this.prenom = prenom;
         this.matricule = matricule;
         this.dateEmbauche = dateEmbauche;
         this.salaire = salaire;
+        this.tempsPartiel = tempsPartiel;
+        this.sexe = sexe;
     }
 
     public String getNom() {
@@ -73,6 +71,22 @@ public abstract class Employe {
         this.salaire = salaire;
     }
 
+    public Boolean getTempsPartiel() {
+        return tempsPartiel;
+    }
+
+    public void setTempsPartiel(Boolean tempsPartiel) {
+        this.tempsPartiel = tempsPartiel;
+    }
+
+    public String getSexe() {
+        return sexe;
+    }
+
+    public void setSexe(String sexe) {
+        this.sexe = sexe;
+    }
+
     public final Integer getNombreAnneeAnciennete(){
         return LocalDate.now().getYear() - this.dateEmbauche.getYear();
     }
@@ -84,11 +98,13 @@ public abstract class Employe {
     @Override
     public String toString() {
         return "Employe{" +
-                "nom='" + nom +
-                "', prenom='" + prenom +
-                "', matricule='" + matricule +
-                "', dateEmbauche=" + dateEmbauche +
+                "nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", matricule='" + matricule + '\'' +
+                ", dateEmbauche=" + dateEmbauche +
                 ", salaire=" + salaire +
+                ", tempsPartiel=" + tempsPartiel +
+                ", sexe='" + sexe + '\'' +
                 '}';
     }
 
@@ -97,12 +113,12 @@ public abstract class Employe {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employe employe = (Employe) o;
-        return Objects.equals(nom, employe.nom) && Objects.equals(prenom, employe.prenom) && Objects.equals(matricule, employe.matricule) && Objects.equals(dateEmbauche, employe.dateEmbauche) && Objects.equals(salaire, employe.salaire);
+        return Objects.equals(nom, employe.nom) && Objects.equals(prenom, employe.prenom) && Objects.equals(matricule, employe.matricule) && Objects.equals(dateEmbauche, employe.dateEmbauche) && Objects.equals(salaire, employe.salaire) && Objects.equals(tempsPartiel, employe.tempsPartiel) && Objects.equals(sexe, employe.sexe);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nom, prenom, matricule, dateEmbauche, salaire);
+        return Objects.hash(nom, prenom, matricule, dateEmbauche, salaire, tempsPartiel, sexe);
     }
 
     public void augmenterSalaire(Double pourcentage){

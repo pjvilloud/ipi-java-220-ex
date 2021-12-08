@@ -5,8 +5,8 @@ import org.joda.time.LocalDate;
 import java.util.Objects;
 
 public class Commercial extends Employe{
-    private Double caAnnuel = 0.0;
-    private Integer performance = 0;
+    private Double caAnnuel = null;
+    private Integer performance = null;
 
     public Commercial() {   }
 
@@ -14,9 +14,10 @@ public class Commercial extends Employe{
         this.caAnnuel = caAnnuel;
     }
 
-    public Commercial(String nom, String prenom, String matricule, LocalDate dateEmbauche, Double salaire, Double caAnnuel) {
-        super(nom, prenom, matricule, dateEmbauche, salaire);
+    public Commercial(String nom, String prenom, String matricule, LocalDate dateEmbauche, Double salaire, Boolean tempsPartiel, String sexe, Double caAnnuel, Integer performance) {
+        super(nom, prenom, matricule, dateEmbauche, salaire, tempsPartiel, sexe);
         this.caAnnuel = caAnnuel;
+        this.performance = performance;
     }
 
     public Double getCaAnnuel() {
@@ -28,12 +29,6 @@ public class Commercial extends Employe{
     }
 
     public void setCaAnnuel(Double caAnnuel, Integer performance) {
-        this.caAnnuel = caAnnuel;
-        this.performance = performance;
-    }
-
-    public Commercial(String nom, String prenom, String matricule, LocalDate dateEmbauche, Double salaire, Double caAnnuel, Integer performance) {
-        super(nom, prenom, matricule, dateEmbauche, salaire);
         this.caAnnuel = caAnnuel;
         this.performance = performance;
     }
