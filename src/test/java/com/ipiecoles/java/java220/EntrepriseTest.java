@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class EntrepriseTest {
-
 	@Test
 	public void exo001ConstantesClasse() throws Exception {
 		//Déclarer au niveau de la classe Entreprise les constantes de classe suivantes
@@ -113,10 +112,10 @@ public class EntrepriseTest {
 	}*/
 
 
-	class Derived extends Employe {
+	static class Derived extends Employe {
 		//A decommenter quand le constructeur avec les 5 arguments est codé
 		public Derived(String nom, String prenom, String matricule, LocalDate dateEmbauche, Double salaire) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-			//super(nom, prenom, matricule, dateEmbauche, salaire);
+			super(nom, prenom, matricule, dateEmbauche, salaire);
 		}
 
 		public Derived() {
@@ -181,7 +180,6 @@ public class EntrepriseTest {
 		Assertions.assertThat(TestUtils.invokeGetter(d, "matricule")).isEqualTo("matricule");
 		Assertions.assertThat(TestUtils.invokeGetter(d, "dateEmbauche")).isEqualTo(dateTime);
 		Assertions.assertThat(TestUtils.invokeGetter(d, "salaire")).isEqualTo(500.0);
-
 	}
 
 	@Test
@@ -200,7 +198,6 @@ public class EntrepriseTest {
 
 		TestUtils.invokeSetter(d, "dateEmbauche", dateTime.minusYears(5));
 		Assertions.assertThat(TestUtils.callMethod(d, "getNombreAnneeAnciennete")).isEqualTo(5);
-
 	}
 
 	@Test
@@ -224,7 +221,6 @@ public class EntrepriseTest {
 		} catch (Exception e) {
 			Assertions.assertThat(e.getCause().getMessage()).isEqualTo("La date d'embauche ne peut être postérieure à la date courante");
 		}
-
 	}
 
 	@Test
@@ -234,7 +230,6 @@ public class EntrepriseTest {
 		TestUtils.checkMethod("Employe", "getNbConges", TestUtils.INTEGER);
 
 		Assertions.assertThat(TestUtils.callMethod(new Derived(), "getNbConges")).isEqualTo(25);
-
 	}
 
 	@Test
@@ -341,8 +336,6 @@ public class EntrepriseTest {
 
 		TestUtils.invokeSetter(d, "caAnnuel", 50049d);
 		Assertions.assertThat(TestUtils.callMethod(d, "getPrimeAnnuelle")).isEqualTo(2503.0);
-
-
 	}
 
 	@Test
@@ -390,7 +383,6 @@ public class EntrepriseTest {
 		c = TestUtils.getClasse("Commercial").getConstructor(String.class, String.class, String.class, LocalDate.class, Double.class, Double.class, Integer.class).newInstance("nom", "prenom", "matricule", dateTime, 500.0, 9000000.0, Integer.valueOf(150));
 
 		Assertions.assertThat(TestUtils.callMethod(c, "performanceEgale", Integer.valueOf(150))).isEqualTo(true);
-
 	}
 
 	@Test
@@ -711,7 +703,6 @@ public class EntrepriseTest {
 		catch(Exception technicienException){
 			Assertions.fail("L'affectation n'aurait pas du lancer une exception");
 		}
-
 	}
 
 	@Test
