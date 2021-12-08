@@ -57,4 +57,9 @@ public class Manager extends Employe{
 
     private class TechnicienException extends Exception {
     }
+
+    @Override
+    public String toString() {
+        return "Manager{} " + super.toString();
+    }
 }
